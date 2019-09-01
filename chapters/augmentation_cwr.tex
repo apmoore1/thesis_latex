@@ -1,0 +1,54 @@
+As clearly shown within the reproducibility chapter \ref{chapter:reproducibility} many methods have been created, of which they have only been applied to selected datasets. This lack of reporting is further compounded with prior work only stating accuracy and/or Macro F1 scores on the entire dataset. This type of reporting is good at comparing methods generally on these datasets, but they generally do not tell us anymore than that. This shows that the field has a deficiency in error analysis tools. Some prior works have suggested different TDSA specific splits of the entire dataset to overcome this error analysis deficiency, but few publication since them have used these splits and only report the entire dataset score. This causes a major problem within our community, `we do not know what we know'. To further expand on what I mean by this, a lot of the methods within the community have general scores that are fairly similar e.g. 2-3\% different but what does that mean?. It could mean that a method is better on sentences that contain multiple targets with different sentiments, or the method is good a generalising to new unseen targets.
+
+
+In this chapter the thesis focuses on:
+\begin{enumerate}
+    \item Creating new TDSA specific subsets for improved error analysis.
+    \item Novel insights into different types of TDSA methods based on the detailed error analysis scores.
+    \item Discover how pre-trained language models that create Contextualised Word Representations improve TDSA methods.
+    \item Based on the error analysis create a novel data augmentation technique that generally improves TDSA methods.
+    \item Show how this novel data augmentation technique can further improve cross domain performance.
+\end{enumerate}
+
+\section{Error Analysis Background}
+In this section we are going to describe the different error analysis techniques that have already been created and the new error analysis subsets (point 1).
+
+Main things that are going to be shown here are the dataset graphs that show the breakdown of these datasets based on these error analysis subsets.
+
+\subsection{There is going to be a section per error analysis subset from previous work and the new subsets I/we create}
+
+\section{Contextualised Word Representations (CWR)}
+(Looks at point 2 and 3 from the introduction)
+
+In this section we are going to look at four different types of Neural Network (NN) systems:
+\begin{enumerate}
+    \item TDSA -- (Knows the target through the LSTM network structure)
+    \item IAN -- (Knows the target through attention on the contextualised sentence)
+    \item IAD -- (models the interaction between the targets in the sentence)
+    \item Memory network -- (encodes the target into the sentence through multiple memory hops, in my opinion this kind of reminds me of self attention but on the target)
+\end{enumerate}
+
+For each of the NN we are going to explore the affect of using CWR instead of standard Glove (non-CWR) with respect to the overall scores as well as the different subsets of data as mentioned in the introduction.
+
+After that for both the CWR and the Glove embeddings we are going to look and see if any of the methods are better than others for different error analysis subsets. E.g. is one better than the other at unseen targets or is another better at multiple target sentences etc.
+
+This section in my opinion all links quite well into the generlisable theme of the PhD.
+
+\section{Data Augmentation}
+(Looks at point 4 from the introduction)
+
+Based on our findings in the CWR chapter we are going to take the best word representations (based on the development scores) for each method and apply our data augmentation method.
+
+This section is going to be broken down into the following sub-sections:
+\subsection{Augmentation Method}
+Describe how I am going to augment the data using existing-ish methods within the augmentation and lexical substitution literature.
+\subsection{Sampling method}
+Describe how the novel sampling method works.
+\subsection{Results}
+Show the results of the augmentation on the different NN methods.
+\section{Cross Domain Analysis}
+(Looks at point 5 from the introduction)
+
+Using the best augmentation method (based on the development scores) for all of the NN see if we improve the scores when training the method on one domain and applying to another domain's test set. This is idea came about from the entity linking literature.
+
+This again shows a different type of generalisation (cross domain generalisation compared to when a method performs well across datasets could be called method generalisation) I feel if the augmentation method does improve cross domain performance.
