@@ -1,14 +1,90 @@
-\documentclass{article}
+\documentclass[11pt]{report}
 \usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\graphicspath{ {images/} }
+\usepackage{tikz}
+\usetikzlibrary{positioning, fit, calc}
+\usepackage[backend=bibtex,style=authoryear,doi=false,maxcitenames=1,natbib]{biblatex}
+\usepackage[colorlinks=false]{hyperref}
+\usepackage[section]{placeins}
+\usepackage[subsection]{placeins}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{mathtools}
+\usepackage{textcomp}
+\usepackage{caption}
+\usepackage{subcaption}
+% To create landscape pages
+% https://tex.stackexchange.com/questions/19017/how-to-place-a-table-on-a-new-page-with-landscape-orientation-without-clearing-t
+\usepackage{pdflscape}
+\usepackage{afterpage}
+\usepackage{capt-of} % or use the larger `caption` package
+% Hypothesis writing
+\usepackage{ntheorem}
+\newtheorem{hyp}{Hypothesis}
+% algorthims
+\usepackage[linesnumbered,ruled]{algorithm2e}
+% Side ways figures
+\usepackage{rotating}
+%%
+%
+% This contains all of the commenting packages and commands
+% https://tex.stackexchange.com/questions/11177/how-to-write-hidden-notes-in-a-latex-file/11179
+%
+% Select what to do with todonotes: 
+% \usepackage[disable]{todonotes} % notes not showed
+\usepackage[draft]{todonotes}   % notes showed
+% Select what to do with command \comment:  
+% \newcommand{\comment}[1]{}  %comment not showed
+\newcommand{\comment}[1]
+{\par {\bfseries \color{blue} #1 \par}} %comment showed
 
-\title{Andrew Moore's thesis}
-\author{Paul Rayson}
-\date{August 2019}
+\bibliography{references/reproducibility}
 
 \begin{document}
 
-\maketitle
+\begin{titlepage}
 
-\section{Introduction}
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}} % Defines a new command for the horizontal lines, change thickness here
 
+\center % Center everything on the page
+
+\textsc{\LARGE Lancaster University}\\[1.5cm] 
+\textsc{\Large PhD Computer Science}\\[0.5cm]
+
+\HRule \\[0.4cm]
+{ \huge \bfseries Generalisability and Data Augmentation within Target Dependent Sentiment Analysis}\\[0.4cm] % Title of your document How can in-depth evaluation improve sentiment analysis
+% Generalisability and Data Augmentation within Target Dependent Sentiment Analysis
+%{ \huge \bfseries How can world knowledge and in-depth evaluation improve sentiment analysis}\\[0.4cm] % Title of your document
+\HRule \\[1.5cm]
+ 
+\large Andrew Moore
+\hfill \\[0.7cm]
+{\large \today}\\[2cm]
+
+\includegraphics{main/uni_logo.png}\\[1cm] 
+
+\vfill % Fill the rest of the page with whitespace
+
+\end{titlepage}
+
+\chapter*{Abstract}
+\input{chapters/abstract}
+
+\tableofcontents
+
+\chapter{Introduction}
+\chapter{Literature Review}
+%\chapter{Domain adaptation within sentiment analysis}
+%\chapter{Reproducibility of Target Dependent algorithms}
+\chapter{Reproducibility and Generalisability of Target Dependent algorithms}
+\input{chapters/reproducibility}
+\chapter{Data Augmentation for TDSA}
+\chapter{Multi Task Learning and TDSA}
+%\chapter{Mass evaluation and error analysis of Target Dependent algorithms}
+\chapter{Conclusion and future work}
+
+
+
+\printbibliography
 \end{document}

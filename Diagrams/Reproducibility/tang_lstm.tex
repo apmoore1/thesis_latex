@@ -1,0 +1,46 @@
+\begin{tikzpicture}[
+    feature/.style={circle, draw, radius=0.05},
+    vector/.style={rectangle, draw, minimum height=1cm},
+    lstm_node/.style={rectangle, draw},
+    arrow_pointer/.style={decoration={markings,mark=at position 1 with %
+    {\arrow[scale=1,>=stealth]{>}}},postaction={decorate}}]
+    
+    % Whole Context
+    \node[feature](feat1){};
+    \node[feature, below=.2 of feat1](feat2){};
+    \node[feature, above=.2 of feat1](feat0){};
+	\node[vector, fit=(feat0)(feat1)(feat2)] (vec0) {};
+	\node[below=.1 of vec0] (x0) {$w_0$};
+	% LSTM 0
+	\node[lstm_node, above=1.5 of feat1](lstm0){LSTM};
+	\draw [arrow_pointer] (vec0) -- (lstm0);
+	
+	\node[right=1 of feat1](dot0){$\dots$};
+	
+	\node[feature, right=1 of dot0](feat4){};
+    \node[feature, below=.2 of feat4](feat5){};
+    \node[feature, above=.2 of feat4](feat3){};
+	\node[vector, fit=(feat4)(feat3)(feat5)] (vecn) {};
+	\node[below=.1 of vecn] (xn) {$w_n$};
+	% LSTM n
+	\node[lstm_node, above=1.5 of feat4](lstmn){LSTM};
+	\draw [arrow_pointer] (vecn) -- (lstmn);
+	
+	% Arrows between LSTMs
+	\node[right=.5 of lstm0] (lstm0_left_mid) {};
+	\node[left=.5 of lstmn] (lstm0_right_mid) {};
+	\draw [arrow_pointer] (lstm0) -- (lstm0_left_mid) node[pos=0.5, below=0.1]{$h_1$};
+	\draw[dotted](lstm0_left_mid) -- (lstm0_right_mid);
+	\draw [arrow_pointer] (lstm0_right_mid) -- (lstmn) node[pos=0.5, below=0.1]{$h_{n-1}$};
+	
+	% Softmax
+	\node[rectangle, draw, above = of lstmn] (softmax) {Softmax};
+	\draw [arrow_pointer] (lstmn) -- (softmax) node[pos=0.5, left=0.05]{$h_{n}$};
+	
+	
+	% Whole context arrows
+	\node[below left=.1 of x0] (line0) {};
+	\node[below right=.1 of xn] (linen) {};
+	\draw [|-|] (line0) -- (linen)  node[pos=0.5, below=0.1]{Whole Context};
+
+\end{tikzpicture}

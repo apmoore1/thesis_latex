@@ -1,0 +1,63 @@
+%
+% First version
+%
+%The area of sentiment analysis has grown in popularity greatly over the last decade and in particular aspect based (ABSA) and target dependent (TD) sentiment analysis. The areas of TD and ABSA have not collected the vast amounts of datasets and algorithms that are already published to see how the area has progressed over the years, leading to practitioners in the area not truly knowing which algorithm performs generally the best and which are better in certain circumstances. In this thesis we attempt to create a benchmarking tool allowing algorithms to be benchmarked across all available datasets, as well as implementing various published algorithms in an easy to use package thus elevating this problem. We further explore using this benchmark how the different dataset can help one another using recently published domain adaptation techniques. Finally we show how different tasks are related to ABSA and TD by utilising multi tasking techniques. To conclude this thesis explores how we can make the most from the vast amount of already well annotated data within ABSA and TD, and how other annotated sources can help with this challenge. 
+
+%
+% Second version
+%
+%The area of sentiment analysis has grown in popularity over the last decade due to its nature of being an interesting text classification task and its real world use cases. Even though every year new ever more complex algorithms are created to better solve these problems many of them neglect two important and orthogonal problems 1. the data used and 2. comparative evaluation. In this thesis we show how to exploit the data used through domain adaptation and the importance of comparative evaluation and how this can improve future algorithms.\\
+
+%Sentiment analysis is well known for naturally being domain specific and thus annotated data can be scarce for certain domains. Hence previous work has looked at how to improve results by utilising the annotated data from other domains. However we show how current methods do not go far enough in splitting the data into domains, which was motivated by our case study within the finance domain. Motivated by this we show how far and how to split the data into domains and whether the hierarchical nature of the data is important when adapting to the domain.\\
+
+%We find that it is not just the type of data we put into the algorithms that is important but how easy it is to reproduce the work of another and how generalisable your algorithms are. This is shown within the thesis by reproducing Target Dependent Sentiment Analysis (TDSA) algorithms and the affect of different parameter settings and datasets on the results. Thus for the first time we can find the state of the art within TDSA. Further more we state the importance of error analysis a step within the scientific evaluation process that is normally ignored by creating an ensemble model of the re-implemented algorithms.\\
+
+%
+% Third version
+%
+
+%The area of sentiment analysis has grown in popularity greatly over the last decade and in particular Target Dependent Sentiment Analysis (TDSA) this is in part due to its potential use in real world applications. Over the many years of research that has been done on this topic code release of methods has not been consistent thus leading to difficulties in comparability between methods when using different datasets. From this we know that practitioners do not truly know which method performs generally the best nor which are better in certain circumstances. Motivated by this, the thesis reports on three major problems within TDSA 1. reproducibility, 2. generalisability, and 3. reporting of error analysis.\\
+
+%This thesis will show the difficulties of reproducibility within TDSA and demonstrating the importance of releasing code and/or clear method descriptions. Through detailed analysis of different parameters settings we show the differences between the method description and results of the original method and our implementation. From which we find the settings that are most important and which type of methods produce more consistent results. Further more we explore how different pre-processing steps could affect the performance of these methods such as domain specific tools instead of general.\\
+
+%TDSA has been widely evaluated on different datasets where there is little over lap between different methods and datasets that it was evaluated on. Therefore using the reproduced methods we evaluate them on a variety of datasets that vary by domain, medium, and type thus allowing for the first time to truly know the state of art in TDSA. However simply comparing method performance using standard metrics does not inform the community on future directions of improvements to TDSA, hence detailed quantifiable error analysis is given. Finally we demonstrate the use of this error analysis through an ensemble of the reproduced models.\\
+
+%
+% Fourth version 
+%
+%This generalisability issue was motivated by the initial explanatory work done in the thesis within domain adaptation but rather than adapting to a domain generalisation is finding a method that can perform well across all domains.
+
+% The area of sentiment analysis has grown in popularity greatly over the last decade and in particular Target Dependent Sentiment Analysis (TDSA) this is in part due to its potential use in real world applications. Over the many years of research that has been done on this topic code release of methods has not been consistent thus leading to difficulties in comparability between methods when using different datasets. From this we know that practitioners do not truly know which method performs generally the best nor which are better in certain circumstances. Generalisability was motivated by the initial domain adaptation work, which in contrast to adapting a method to a domain it finds a method that can perform well across all domains. This thesis reports on three major problems within TDSA 1. reproducibility, 2. generalisability, and 3. reporting of error analysis as well as the exploratory study within domain adaptation.\\
+
+%Domain adaptation is an important part of real world deployment of sentiment analysis which has been well researched over the last decade. However all of the previous research takes a coarse grained approach to splitting the data into domains. We show through multiple case studies that taking a more fine grained approach to splitting the domains can improve sentiment classification.\\
+
+The area of sentiment analysis has grown in popularity greatly over the last decade and in particular Target Dependent Sentiment Analysis (TDSA) this is in part due to its potential use in real world applications. Over the many years of research that has been done on this topic code release of methods has not been consistent thus leading to difficulties in comparability between methods when using different datasets. From this we know that practitioners do not truly know which method is most generalisable. This thesis reports on three major problems within TDSA 1. reproducibility, 2. generalisability, and 3. error analysis of results. Motivated by the error analysis results we show how two orthogonal techniques; data augmentation and multi task learning can generally improve TDSA methods for the first time.
+
+
+
+% Perhaps we need to suggest here a set of guidelines we will produce to say what needs to be stated in the paper etc?
+This thesis will show the difficulties of reproducibility within TDSA and demonstrating the importance of releasing code and/or clear method descriptions. Through detailed analysis of different parameters settings we show the differences between the method description and results of the original method and our implementation. From which we find the settings that are most important and which type of methods produce more consistent results. Furthermore we explore how different pre-processing steps could affect the performance of these methods.\\
+
+TDSA has been widely evaluated on different datasets where there is little over lap between different methods and datasets that it was evaluated on. Therefore using the reproduced methods we evaluate them on a variety of datasets that vary by domain, medium, and type thus allowing for the first time to truly know the state of art in TDSA and the most generalisable method. However simply comparing method performance using standard metrics does not inform the community on future directions of improvements to TDSA. Therefore we analysis the results across different TDSA specific error analysis metrics that have been created within the community but generally ignored. Lastly we create our own novel error analysis metric Target Error Type (TET) that can be used to measure the performance of zero shot learning and the extent the model is overfitting to the target.
+
+Leveraging the existing but widely unused TDSA error analysis technique of Wang et al. \cite{repro_wang_2017} we find that all existing TDSA methods perform significantly worse on sentences with multiple targets and sentiments. Thus we show how incorporating syntactic information through multi task learning for the first time can overcome this problem. Using the novel TET analysis we create a new TDSA data augmentation technique that improves target overfitting and zero shot performance across all methods. We finally combine the two multi task and data augmentation to show how all methods can better generalise.
+
+
+%furthermore we create a novel ensemble method that demonstrates the use of the error analysis by being part of its feature set. Finally we show the importance of sub word level information for TDSA for the first time which was motivated from the error analysis and other work in the field of sentiment analysis.\\
+
+
+
+
+
+
+
+
+%\textbf{Potential Research questions}
+%\begin{enumerate}
+%\item When is a domain a domain for domain adaptation within sentiment analysis?
+%\item How do different parameter settings and pre-processing tasks affect the performance of a method within Target Dependent Sentiment Analysis?  
+%\item How can replication help uncover underlying issues with the method stated in the paper and what can be done to prevent this?
+%\item What is the current state of the art in Target Dependent Sentiment Analysis?
+%\item How can error analysis be used to improve Target Dependent Sentiment Analysis?
+%\item How to improve Target Dependent Sentiment Analysis through an ensemble of models?
+%\end{enumerate}
