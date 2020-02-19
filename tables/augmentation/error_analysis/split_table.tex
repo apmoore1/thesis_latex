@@ -1,0 +1,19 @@
+\begin{longtable}{|p{0.15\linewidth}|p{0.45\linewidth}|p{0.4\linewidth}|}
+\hline
+Split & Description & What it measures \\
+\hline
+Distinct Sentiment (\textit{DS})\citep{aug_wang_2017}. & Splits the data based on the number of unique sentiment classes within one text where $DS_i$ represents \textit{i} unique sentiment classes within a text. &  The methods ability to capture sentiment relations within the text. If the method performs well on larger values of \textit{i} the better the method is at capturing these relations. Less directly this measures the methods capability of modelling target interactions. \\
+\hline
+\textit{NT} \citep{aug_zhang2019aspectbased}. & Splits the data based on the number of targets within the text, where $NT_i$ split contains all the texts that have \textit{i} number of targets within it & The methods ability to model target interactions, where the larger \textit{i} is the higher the likelihood of more target interactions. For instance in example 4 from table \ref{table:aug_error_split_examples} to infer the sentiment for \textit{Dave} you need to know the sentiment towards \textit{police} and \textit{crime}.\\
+\hline
+\textit{TSSR} novel split. & Splits the data based on the \textit{TSSR} equation \ref{eq:aug_tssr}. The maximum value of $1$ represents a target that is within a text that contains one unique sentiment. A \textit{TSSR} value less than $1$ denotes a target that is within a text that contains at least more than one unique sentiment. A \textit{TSSR} value gets smaller based on how unique the targets sentiment is within that text. & Capturing overfitting to the most frequent sentiment within a text, which can be measured to some degree by comparing the methods High (Multi 1) \textit{TSSR} subset to the Low (1) \textit{TSSR} subset. It can also to some degree measure both target interaction and sentiment relations when the \textit{TSSR} value is less than $1$, thus a combination of both \textit{DS} and \textit{NT}.\\
+\hline
+\textit{ST} \citep{aug_nguyen-shirai-2015-phrasernn}. & Splits the data into three subsets \textit{ST1} for texts that contain one target, \textit{ST2} and \textit{ST3} for texts that contain more than one target, where \textit{ST2} texts only have one unique sentiment. & The methods ability to capture sentiment relations and its interaction with other targets. \\
+\hline
+\textit{n-shot} \citep{aug_yang2018multi}. & Splits the data based on the number of times the target has appeared in the training data, when $n=i$ the subset contains samples that have targets that only appear in the training data \textit{i} times. & A methods ability to generalise to unseen targets when $n=0$, as well as its capability of learning a new target. \\
+\hline
+\textit{TRS} novel split. & Splits the data into three subsets: 1. \textit{Unknown Targets}(\textit{UT}) when the target has never been seen in the training data, 2. \textit{Unknown Sentiment Known Target}(\textit{USKT}) when the target has been seen in the training data but not with the same sentiment class, and 3. \textit{Known Sentiment Known Target}(\textit{KSKT}) when the target has been seen in the training data with the same sentiment class. NOTE \textit{UT} is equal to \textit{n-shot} when $n=0$. & A methods ability to generalise to unseen targets \textit{UT} split, and unknown sentiment relations \textit{USKT} split, where the \textit{KSKT} split can be seen as the methods upper limit for the former two subsets performance. \\
+\hline
+\caption{Summary of the different error splits.}
+\label{table:aug_error_split_summary}
+\end{longtable}

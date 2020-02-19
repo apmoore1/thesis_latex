@@ -1,0 +1,15 @@
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+&  &        \multicolumn{4}{c|}{Model} \\
+\hline
+Metric & Dataset &     Att-AE &           CNN &           IAN &        TDLSTM   \\
+\hline
+\multirow{3}{*}{Accuracy} & Election & 56.49 (0.76) &  52.35 (0.69) &  \textbf{58.60 (0.36)} &  58.39 (0.74) \\
+& Laptop &  67.99 (1.30) & \textbf{ 68.26 (0.69)} &  66.58 (0.53) &  67.46 (1.60) \\
+& Restaurant &  \textbf{76.62 (0.59)} &  75.81 (0.55) &  76.51 (1.49) &  76.09 (0.62) \\
+\hline
+\multirow{3}{*}{Macro F1} & Election &  44.23 (1.81) &  39.98 (2.20) &  43.90 (1.52) &  \textbf{46.95 (2.33)} \\
+& Laptop &  59.97 (2.29) &  60.43 (1.36) &  58.78 (0.62) &  \textbf{60.52 (2.63)} \\
+& Restaurant &  61.01 (1.47) &  59.40 (1.52) &  61.22 (2.85) &  \textbf{61.59 (1.57)} \\
+\hline
+\end{tabular}

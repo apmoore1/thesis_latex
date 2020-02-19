@@ -1,0 +1,22 @@
+
+\begin{longtable}{|c|c|c|c|c|c|c|c|}
+ \hline
+Name & Split &  No. Sents(t) &  No. Targs (Uniq) &  ATS(t) & POS (\%) & NEU (\%) & NEG (\%) \\
+ \hline
+\multirow{3}{*}{Laptop} & Train &              1051 &         1661 (739) &    1.58 &   695 (41.84) &   319 (19.21) &   647 (38.95) \\
+ &        Val &               411 &          652 (368) &    1.59 &   292 (44.79) &   141 (21.63) &   219 (33.59) \\
+ &       Test &               411 &          638 (389) &    1.55 &   341 (53.45) &   169 (26.49) &   128 (20.06) \\
+ \hline
+\multirow{3}{*}{Election} &    Train &              2319 &         6811 (1496) &    2.94 &  1014 (14.89) &  2645 (38.83) &  3152 (46.28) \\
+ &      Val &               863 &         2547 (741) &    2.95 &   352 (13.82) &   970 (38.08) &   1225 (48.1) \\
+ &     Test &               863 &         2541 (751) &    2.94 &   378 (14.88) &   957 (37.66) &  1206 (47.46) \\
+ \hline
+\multirow{3}{*}{Restaurant} &  Train &              1378 &         2490 (914) &    1.81 &   1489 (59.8) &   422 (16.95) &   579 (23.25) \\
+ &    Val &               600 &         1112 (480) &    1.85 &    675 (60.7) &   211 (18.97) &   226 (20.32) \\
+ &   Test &               600 &         1120 (520) &    1.87 &    728 (65.0) &    196 (17.5) &    196 (17.5) \\
+ \hline
+ \multicolumn{8}{|p{0.95\linewidth}|}{No. Sents(t)=number of sentences that contain a target, No. Targs (Uniq)=Number of (unique) targets (all targets are lower cased), ATS(t)=Average Target per Sentence where the sentences must contain a target, LABEL (\%)=Number of LABEL samples (percentage of LABEL samples).} \\
+ \hline
+\caption{Dataset statistics for each split for all datasets.}
+\label{table:augmentation_splits_dataset_statistics}
+\end{longtable}

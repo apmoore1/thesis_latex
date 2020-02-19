@@ -26,6 +26,9 @@
 \usepackage[linesnumbered,ruled]{algorithm2e}
 % Side ways figures
 \usepackage{rotating}
+% Tables across multiple pages
+\usepackage{longtable}
+\usepackage{multirow}
 %%
 %
 % This contains all of the commenting packages and commands
@@ -39,7 +42,12 @@
 \newcommand{\comment}[1]
 {\par {\bfseries \color{blue} #1 \par}} %comment showed
 
-\bibliography{references/reproducibility}
+% Used to put table and figures next to each other
+\usepackage{floatrow}
+% Table float box with bottom caption, box width adjusted to content
+\newfloatcommand{capbtabbox}{table}[][\FBwidth]
+
+\bibliography{references/reproducibility,references/augmentaion_cwr,references/vectors,references/methods,references/cwr_tdsa_models}
 
 \begin{document}
 
@@ -84,7 +92,20 @@
 \input{chapters/augmentation_cwr}
 \chapter{Multi Task Learning and TDSA}
 %\chapter{Mass evaluation and error analysis of Target Dependent algorithms}
-\chapter{Conclusion and future work}
+\chapter{Conclusion and Future Work}
+\appendix
+\chapter{Contextualised Word Representation and Augmentation for TDSA}
+\section{Tables}
+\input{appendix/augmentation_cwr.tex}
+\section{Text Classifier Performance\footnote{Notebook associated to these results can be found here: \url{https://bit.ly/2T3d9M2}.}}
+\label{section:appendix_cnn_tdsa_baseline}
+\input{appendix/text_classifier_performance.tex}
+\section{Baseline TDSA Performance Metrics}
+\label{section:appendix_tdsa_baseline_metrics}
+\input{appendix/tdsa_baseline_performance_metrics.tex}
+\section{Baseline Error Subset Performance}
+\label{section:appendix_baseline_error_subset_performance}
+\input{appendix/baseline_error_subset_performance}
 
 
 

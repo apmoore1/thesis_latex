@@ -1,0 +1,21 @@
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|}
+\hline
+& Dataset & \multicolumn{3}{c|}{Election} & \multicolumn{3}{c|}{Laptop} & \multicolumn{3}{c|}{Restaurant} \\    
+\hline
+& Split &       OT &    ST &     V &     OT &    ST &     V &         OT &    ST &     V \\
+\hline
+Data Split & Data Subset &          &       &       &        &       &       &            &       &       \\
+\hline
+\multirow{3}{*}{\textit{TRS}} & \textit{KTKS} &     82.4 &  80.8 &  80.9 &   47.3 &  42.5 &  58.6 &       63.2 &  60.4 &  67.9 \\
+& \textit{USKT} &      3.7 &   4.1 &   4.4 &   10.5 &  10.8 &   8.4 &        5.4 &   6.2 &   5.8 \\
+& \textit{UT} &     13.9 &  15.1 &  14.7 &   42.2 &  46.7 &  33.0 &       31.4 &  33.4 &  26.3 \\
+\hline
+\multirow{3}{*}{\textit{n-shot}} & \textit{zero-shot} &     13.9 &  15.1 &  14.7 &   42.2 &  46.7 &  33.0 & 31.4 &  33.4 &  26.3 \\
+& \textit{low-shot} &     29.1 &  28.3 &  28.9 &   19.6 &  19.9 &  23.6 &       23.8 &  23.1 &  25.9 \\
+& \textit{med-shot} &     29.0 &  28.7 &  28.8 &   19.3 &  17.7 &  23.5 &       23.0 &  22.4 &  29.5 \\
+& \textit{high-shot} &     28.0 &  28.0 &  27.6 &   19.0 &  15.7 &  19.9 &       21.7 &  21.1 &  18.3 \\
+\hline
+\multicolumn{11}{|c|}{OT = original training with test dataset, ST = split training with test dataset} \\
+\multicolumn{11}{|c|}{V = split training with validation dataset} \\
+\hline
+\end{tabular}

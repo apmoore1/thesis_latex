@@ -1,0 +1,32 @@
+The results of the \textit{CNN} method trained using two different ways of creating a text level dataset from the TDSA datasets are reported. To re-iterate the two ways of creating a text level dataset are; 1. only use texts that contain one unique sentiment (single), and 2. use the majority sentiment from the text (average). The model trained using the first (second) dataset creation will be called \textit{CNN (single)} (\textit{CNN (average)}). The training dataset statistics for these two datasets are shown in table \ref{table:aug_appendix_cnn_training_stats}, from this it is clear and expected that the average dataset has far more samples. For clarification the validation and test split statistics are those of the TDSA dataset statistics table \ref{table:aug_methods_performance_split_breakdown} as the text classification models are being tested as TDSA classifiers.
+\begin{table}[ht!]
+    \centering
+    \input{tables/augmentation/methods_performance/CNN_training/training_dataset_stats.tex}
+    \caption{Dataset statistics for the training split for the two \textit{CNN} models \textit{average} and \textit{single}. The Negative, Neutral, and Positive rows show the proportion of samples that represent the respective sentiment classes.}
+    \label{table:aug_appendix_cnn_training_stats}
+\end{table}
+
+Tables \ref{table:aug_appendix_cnn_valid_results} and \ref{table:aug_appendix_cnn_test_results} show the mean and standard deviation of the scores over eight runs on the validation and test splits respectively.
+
+\begin{table}[ht!]
+    \centering
+    \input{tables/augmentation/methods_performance/CNN_training/validation_results.tex}
+    \caption{Validation results for \textit{CNN (single)} and \textit{CNN (average)}.}
+    \label{table:aug_appendix_cnn_valid_results}
+\end{table}
+
+\begin{table}[ht!]
+    \centering
+    \input{tables/augmentation/methods_performance/CNN_training/test_results.tex}
+    \caption{Test results for \textit{CNN (single)} and \textit{CNN (average)}}
+    \label{table:aug_appendix_cnn_test_results}
+\end{table}
+
+From these results the majority of the time \textit{CNN (average)} is the better model, of which the result is larger on the Macro F1 metric. This is most likely due to the fact that the dataset for \textit{CNN (single)} contains very few samples for the minority classes. Table \ref{table:aug_appendix_cnn_p_values} shows the p-values from the appropriate one-tailed hypothesis tests where the null hypothesis is that the \textit{CNN (average)} model performs just as well as the \textit{CNN (single)} model. After correcting the p-values using Bonferroni the \textit{CNN (average)} is significantly better with a confidence of $95\%$ on the validation split for 1 (3) out of the 3 datasets for the accuracy (Macro F1) metric and 1 (2) for the test split.   
+
+\begin{table}[ht!]
+    \centering
+    \input{tables/augmentation/methods_performance/CNN_training/p_values.tex}
+    \caption{P-Values. $\dagger$ and $\ast$ indicates p-values less than or equal to 0.01 and 0.05 respectively }
+    \label{table:aug_appendix_cnn_p_values}
+\end{table}

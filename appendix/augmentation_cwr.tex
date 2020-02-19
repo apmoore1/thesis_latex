@@ -1,0 +1,30 @@
+\begin{table}[!ht]
+    \centering
+    \input{tables/augmentation/methods_performance/default_hyperparameters.tex}
+    \caption{Default hyperparameters.}
+    \label{table:aug_methods_performance_default_hyperparameters}
+\end{table}
+
+\begin{sidewaystable}
+    \centering
+    \input{tables/augmentation/methods_performance/global_dataset_comparison.tex}
+    \caption{Differences between different dataset combinations with respect to global error splits.}
+    \label{table:aug_methods_performance_global_error_diff}
+\end{sidewaystable}
+
+\begin{table}[!ht]
+    \centering
+    \input{tables/augmentation/methods_performance/local_val_test_comparison.tex}
+    \caption{Differences between the test and validation datasets with respect to local error splits.}
+    \label{table:aug_methods_performance_local_error_diff}
+\end{table}
+
+\afterpage{%
+    %\clearpage% Flush earlier floats (otherwise order might not be correct)
+    \thispagestyle{document}
+    \begin{landscape}% Landscape page
+            \centering
+            \input{tables/augmentation/methods_performance/Baselines_results/splits_dataset_statistics}
+    \end{landscape}
+    \clearpage% Flush page
+}
