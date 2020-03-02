@@ -1,0 +1,27 @@
+\section{Data Augmentation}
+% (Looks at point 4 from the introduction)
+% related work part (should I also talk about data augmentation from the computer vision perspective where I think it started?)
+Data augmentation can be seen as a regularisation technique to prevent methods from overfitting to specific words and phrases within the limited training corpus for the given task. However augmenting language is notoriously difficult as substituting a word within a sentence can change the whole meaning of it. For instance `Jane got hired today` and `Jane got fired today` both `hired` and `fired` are syntactically valid words but the meaning of the sentence is very different, in the first instance it is positive where as the second is negative. Therefore data augmentation is highly related to the task of lexical substitution \cite{aug_mccarthy-navigli-2007-semeval} where given a sentence and a word(s) within it find a valid replacement that keeps the meaning of the sentence e.g. `employed` instead of `hired`. This task relates and relies heavily on the word sense disambiguation literature.
+
+Within lexical substitution the SOTA currently \cite{aug_zhou-etal-2019-bert} uses a BERT \cite{aug_devlin-etal-2019-bert} based language model (LM). They use BERT to predict the substitute word given the word's context, and then further weights these predicted words based on a sentence level similarity between the original sentence and the sentence with the predicted word. This work showcases two major points: 1. the word needs to be syntactically valid which comes from the LM prediction, 2. the word is contextually correct with respect to the entire sentence which partly comes from the LM prediction but mainly from the sentence level similarity metric. Lastly it showcases that all of this can be performed in an un-supervised fashion without human annotated knowledge bases like WordNet which a lot of prior work is based on.
+
+The lexical substitution work is highly relevant and related to data augmentation, however augmentation applies the knowledge from lexical substitution to downstream tasks such as text classification \cite{aug_zhang_2015,aug_wang_2015,aug_kobayashi_2018,aug_wu_2018} and machine translation \cite{aug_fadaee_2017} to improve the general method. Within the text classification work augmentation is applied to mainly regularize the methods generally. Whereas in the machine translation the augmentation was targeted to improve the performance of the model with respect to translating rare or un-common words by only augmenting common words into rare words, of which this was shown to be useful in low resource settings.
+
+
+
+
+Based on our findings in the CWR chapter we are going to take the best word representations (based on the development scores) for each method and apply our data augmentation method.
+
+This section is going to be broken down into the following sub-sections:
+\subsection{Augmentation Method}
+Describe how I am going to augment the data using existing-ish methods within the augmentation and lexical substitution literature.
+\subsection{Sampling method}
+Describe how the novel sampling method works.
+\subsection{Results}
+Show the results of the augmentation on the different NN methods.
+\section{Cross Domain Analysis}
+(Looks at point 5 from the introduction)
+
+Using the best augmentation method (based on the development scores) for all of the NN see if we improve the scores when training the method on one domain and applying to another domain's test set. This is idea came about from the entity linking literature.
+
+This again shows a different type of generalisation (cross domain generalisation compared to when a method performs well across datasets could be called method generalisation) I feel if the augmentation method does improve cross domain performance.
