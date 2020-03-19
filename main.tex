@@ -13,6 +13,7 @@
 \usepackage{mathtools}
 \usepackage{textcomp}
 \usepackage{caption}
+\usepackage{newfloat}
 \usepackage{subcaption}
 % To create landscape pages
 % https://tex.stackexchange.com/questions/19017/how-to-place-a-table-on-a-new-page-with-landscape-orientation-without-clearing-t
@@ -29,6 +30,15 @@
 % Tables across multiple pages
 \usepackage{longtable}
 \usepackage{multirow}
+% Examples
+\DeclareFloatingEnvironment[
+  fileext = loe,
+  listname = Examples,
+  name = Example,
+  placement = H,
+  within = none,
+  ]{example}
+\captionsetup[example]{labelfont=bf}
 %%
 %
 % This contains all of the commenting packages and commands
@@ -90,13 +100,13 @@
 \chapter{Reproducibility and Generalisability of Target Dependent algorithms}
 \label{chapter:reproducibility}
 \input{chapters/reproducibility}
-\chapter{Contextualised Word Representation and Augmentation for TDSA}
+\chapter{Improving Experimental Methodology for TDSA}
 \input{chapters/augmentation_cwr}
 \chapter{Multi Task Learning and TDSA}
 %\chapter{Mass evaluation and error analysis of Target Dependent algorithms}
 \chapter{Conclusion and Future Work}
 \appendix
-\chapter{Contextualised Word Representation and Augmentation for TDSA}
+\chapter{Improving Experimental Methodology for TDSA}
 \section{Tables}
 \input{appendix/augmentation_cwr.tex}
 \section{Text Classifier Performance\footnote{Notebook associated to these results can be found here: \url{https://bit.ly/2T3d9M2}.}}
