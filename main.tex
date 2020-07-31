@@ -1,14 +1,19 @@
+% Only allowed a lef margin of 38mm and the rest has be 25mm.
 \documentclass[11pt]{report}
+%\usepackage[a4paper, left=38mm, right=25mm, top=25mm, bottom=25mm,includeheadfoot]{geometry}
+\usepackage{geometry}
+
 \usepackage[utf8]{inputenc}
 \usepackage{graphicx}
 \graphicspath{ {images/} }
-\usepackage{tikz}
-\usetikzlibrary{positioning, fit, calc}
 \usepackage[backend=bibtex,style=authoryear,doi=false,maxcitenames=1,natbib]{biblatex}
-\usepackage[colorlinks=false]{hyperref}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=false,
+    breaklinks=true
+}
 \usepackage[section]{placeins}
 \usepackage[subsection]{placeins}
-\usepackage{amsfonts}
 \usepackage{amsmath}
 \usepackage{mathtools}
 \usepackage{textcomp}
@@ -16,13 +21,15 @@
 \usepackage{newfloat}
 \usepackage{subcaption}
 % To create landscape pages
-% https://tex.stackexchange.com/questions/19017/how-to-place-a-table-on-a-new-page-with-landscape-orientation-without-clearing-t
+
 \usepackage{pdflscape}
 \usepackage{afterpage}
 \usepackage{capt-of} % or use the larger `caption` package
 % Hypothesis writing
 \usepackage{ntheorem}
 \newtheorem{hyp}{Hypothesis}
+\newtheorem{definition}{Definition}
+\newtheorem{researchq}{Research Question}
 % algorthims
 \usepackage[linesnumbered,ruled]{algorithm2e}
 % Side ways figures
@@ -39,6 +46,9 @@
   within = none,
   ]{example}
 \captionsetup[example]{labelfont=bf}
+% Section numbering
+\setcounter{secnumdepth}{4}
+\setcounter{tocdepth}{4}
 %%
 %
 % This contains all of the commenting packages and commands
@@ -57,75 +67,206 @@
 % Table float box with bottom caption, box width adjusted to content
 \newfloatcommand{capbtabbox}{table}[][\FBwidth]
 
+% Inline lists
+\usepackage[inline]{enumitem}
+
+% reduces the latex under and over flow problems, keep in mind that people have found problem using this package with the table of contents.
+\usepackage{microtype}
+% Clashes with amsmath but is required for math drawings
+\usepackage{amsfonts}
+
+\usepackage{bibentry}
+
+% Box colours, taken from the paper I did with Jeremy Barnes, of which I thank Jeremy for these Latex commands
+\usepackage{colortbl}
+\usepackage{xcolor}
+\definecolor{lightblue}{RGB}{200,245,255}
+\definecolor{lightred}{RGB}{255,200,200}
+\definecolor{lightgrey}{RGB}{215,215,215}
+\definecolor{lightgreen}{RGB}{144,238,144}
+\newcommand{\posbox}[1]{{\setlength{\fboxsep}{1pt}\colorbox{lightblue}{#1}}}
+\newcommand{\negbox}[1]{{\setlength{\fboxsep}{1pt}\colorbox{lightred}{#1}}}
+\newcommand{\neubox}[1]{{\setlength{\fboxsep}{1pt}\colorbox{lightgrey}{#1}}}
+\newcommand{\highbox}[1]{{\setlength{\fboxsep}{1pt}\colorbox{lightgreen}{#1}}}
+
+\newcolumntype{k}{>{\columncolor{pink}}p{0.4cm}}
+\newcolumntype{g}{>{\columncolor{green}}p{0.4cm}}
+\newcolumntype{y}{>{\columncolor{yellow}}p{0.4cm}}
+\newcolumntype{d}{>{\columncolor{gray}}p{0.4cm}}
+\newcolumntype{M}{>{\centering\arraybackslash}p{1.2cm}}
+\usepackage{pifont}
+\newcommand{\cmark}{\ding{51}}
+\newcommand{\cbox}[1]{\raisebox{\depth}{\fcolorbox{black}{#1}{\null}}}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\usepackage{booktabs}
+\newcommand{\sd}[1]{\par \scriptsize #1}
+\newcommand{\rqref}[1]{RQ \ref{#1}}
+
+% This has come from overleaf and has been slightly adapted. This counts everything including footnotes and captions I believe and the appendix, but not bibliography.
+% https://www.overleaf.com/learn/how-to/Is_there_a_way_to_run_a_word_count_that_doesn%27t_include_LaTeX_commands%3F
+\newcommand{\quickwordcount}[1]{%
+  \immediate\write18{texcount -0 -sum -merge  #1.tex > #1-words.sum }%
+  \input{#1-words.sum}%
+}
+\usepackage{datetime}
+\newdateformat{monthyeardate}{%
+  \monthname[\THEMONTH], \THEYEAR}
+
+\newgeometry{a4paper, left=38mm, right=25mm, top=25mm, bottom=25mm,includeheadfoot}
+
 \bibliography{references/methods}
 
 \begin{document}
 
 \begin{titlepage}
 
-\newcommand{\HRule}{\rule{\linewidth}{0.5mm}} % Defines a new command for the horizontal lines, change thickness here
+\center
 
-\center % Center everything on the page
+\includegraphics[scale=0.45]{main/uni_logo.png}\vspace{1cm}
 
-\textsc{\LARGE Lancaster University}\\[1.5cm] 
-\textsc{\Large PhD Computer Science}\\[0.5cm]
+\huge  \textbf{Empirical Evaluation Methodology for Target Dependent Sentiment Analysis}
 
-\HRule \\[0.4cm]
-{ \huge \bfseries Empirical Evaluation and Improvements for Target Dependent Sentiment Analysis}\\[0.4cm] % Title of your document How can in-depth evaluation improve sentiment analysis
-% Generalisability and Data Augmentation within Target Dependent Sentiment Analysis
-% Empirical Evaluation and Improvements for Target Dependent Sentiment Analysis
-% Generalisability and Data Augmentation within Target Dependent Sentiment Analysis
-%{ \huge \bfseries How can world knowledge and in-depth evaluation improve sentiment analysis}\\[0.4cm] % Title of your document
-\HRule \\[1.5cm]
- 
-\large Andrew Moore
-\hfill \\[0.7cm]
-{\large \today}\\[2cm]
+\vspace{2cm}
 
-\includegraphics{main/uni_logo.png}\\[1cm] 
+\large \textbf{Andrew Phillip Moore B.Sc. (Hons)}
 
-\vfill % Fill the rest of the page with whitespace
+School of Computing and Communications
+
+Lancaster University
+
+\vfill
+
+A thesis submitted for the degree of
+
+\textit{Doctor of Philosophy}
+
+\vspace{0.5cm}
+
+\monthyeardate\today
 
 \end{titlepage}
 
-\chapter*{Abstract}
+
+% This has been taken from Alistair Baron and Kelly Widdicks thesis
+\section*{\centering Declaration}
+I declare that the work presented in this thesis is, to the best of my knowledge and belief, original and my own work. The material has not been submitted, either in whole or in part, for a degree at this, or any other university. This thesis does not exceed the maximum permitted word length of 80,000 words including appendices and footnotes, but excluding the bibliography. A rough estimate of the word count is: \quickwordcount{main}\vspace{48pt} 
+
+\noindent Andrew Phillip Moore
+
+\clearpage
+
+% Design taken from Kelly Widdicks thesis
+\begin{center}
+\textbf{Empirical Evaluation Methodology and Improvements for Target Dependent Sentiment Analysis}
+
+Andrew Phillip Moore B.Sc. (Hons).
+
+School of Computing and Communications, Lancaster University
+
+A thesis submitted for the degree of \textit{Doctor of Philosophy}. \monthyeardate\today
+\end{center}
+
+
+\section*{\centering Abstract}
 \input{chapters/abstract}
+
+
+\clearpage
+
+% To be done after the viva for final submission.
+%\section*{\centering Acknowledgements}
+%Add something here
+
+\clearpage
+
+\section*{\centering Publications}
+Only one publication, shown below, has been created directly from the thesis, from which large portions of this published work is used within chapter \ref{chapter:reproducibility}:\bigskip
+
+\noindent \fullcite{moore-rayson-2018-bringing}\vspace{24pt}
+
+\noindent The following publication have been generated while developing this thesis, and to an extent has guided the thesis into what it has become:\bigskip
+
+\noindent \fullcite{moss-etal-2019-fiesta}\bigskip
+
+\noindent \fullcite{moore-rayson-2017-lancaster}\bigskip
+
+\noindent \fullcite{el-haj-etal-2016-learning}\bigskip
+
+\noindent \fullcite{moore2016domain}
+
+\clearpage
 
 \tableofcontents
 
+\clearpage
+
+\listoffigures
+
+\clearpage
+
+\listoftables
+
+
+
 \chapter{Introduction}
+\label{chapter:introduction}
+\input{chapters/introduction}
 \chapter{Literature Review}
 \label{chapter:lit_review}
 \input{chapters/lit_review}
-%\chapter{Domain adaptation within sentiment analysis}
-%\chapter{Reproducibility of Target Dependent algorithms}
-\chapter{Reproducibility and Generalisability of Target Dependent algorithms}
+\chapter{Reproducibility and Generalisability of TDSA Methods}
 \label{chapter:reproducibility}
 \input{chapters/reproducibility}
-\chapter{Improving Experimental Methodology for TDSA}
+\chapter[Improving Experimental Methodology for TDSA]{Improving Experimental\\Methodology for TDSA}
+\label{chapter:methodology}
 \input{chapters/augmentation_cwr}
-\chapter{Multi Task Learning and TDSA}
+\chapter[Case Studies in Improving Experimental Methodology for TDSA]{Case Studies in\\Improving Experimental\\Methodology for TDSA}
+\label{chapter:case_study_methodology}
+\input{chapters/augmentation_case_study}
 %\chapter{Mass evaluation and error analysis of Target Dependent algorithms}
-\chapter{Conclusion and Future Work}
+\chapter{Conclusion}
+\label{chapter:conclusion}
+\input{chapters/conclusion}
+
 \appendix
-\chapter{Improving Experimental Methodology for TDSA}
+\chapter{Reproducibility and Generalisability of TDSA Methods}
 \section{Tables}
+\label{appendix_reproducibility_tables}
+\input{appendix/reproducibility_tables}
+\section{Images}
+\label{appendix_reproducibility_images}
+\input{appendix/reproducibility_images}
+\chapter[Improving Experimental Methodology for TDSA]{Improving Experimental\\Methodology for TDSA}
+\section{Tables}
+\label{appendix_augmentation_tables}
 \input{appendix/augmentation_cwr.tex}
-\section{Text Classifier Performance\footnote{Notebook associated to these results can be found here: \url{https://bit.ly/2T3d9M2}.}}
+\section{Figures}
+\label{appendix_augmentation_figures}
+\input{appendix/augmentation_figures.tex}
+\section[Text Classifier Performance]{Text Classifier Performance\footnote{Notebook that created these results can be found here: \url{https://github.com/apmoore1/tdsa_comparisons/blob/master/analysis/Baseline_non_target_results.ipynb}.}}
 \label{section:appendix_cnn_tdsa_baseline}
 \input{appendix/text_classifier_performance.tex}
-\section{Baseline TDSA Performance Metrics}
-\label{section:appendix_tdsa_baseline_metrics}
-\input{appendix/tdsa_baseline_performance_metrics.tex}
-\section{Baseline Error Subset Performance}
-\label{section:appendix_baseline_error_subset_performance}
-\input{appendix/baseline_error_subset_performance}
-\section{Position Encoded Figures and Tables}
-\label{section:appendix_position_encoded_figures_and_tables}
-\input{appendix/position_encoded_figures_and_tables}
-\section{Inter Target Encoding Figures}
-\label{section:appendix_inter_target_encoding_figures_and_tables}
-\input{appendix/inter_target_encoding}
+\chapter[Case Studies in Improving Experimental Methodology for TDSA]{Case Studies in\\Improving Experimental\\Methodology for TDSA}
+%\section{Tables}
+%\label{appendix_case_tables}
+%\input{appendix/case_tables}
+\section{Images}
+\label{appendix_case_images}
+\input{appendix/case_figures}
+%\section{Baseline TDSA Performance Metrics}
+%\label{section:appendix_tdsa_baseline_metrics}
+%\input{appendix/tdsa_baseline_performance_metrics.tex}
+%\section{Baseline Error Subset Performance}
+%\label{section:appendix_baseline_error_subset_performance}
+%\input{appendix/baseline_error_subset_performance}
+%\section{Position Encoded Figures and Tables}
+%\label{section:appendix_position_encoded_figures_and_tables}
+%\input{appendix/position_encoded_figures_and_tables}
+%\section{Inter Target Encoding Figures}
+%\label{section:appendix_inter_target_encoding_figures_and_tables}
+%\input{appendix/inter_target_encoding}
 
 
 

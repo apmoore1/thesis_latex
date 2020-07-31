@@ -19,12 +19,29 @@
     \label{table:aug_methods_performance_local_error_diff}
 \end{table}
 
-\afterpage{%
-    %\clearpage% Flush earlier floats (otherwise order might not be correct)
-    \thispagestyle{document}
-    \begin{landscape}% Landscape page
-            \centering
-            \input{tables/augmentation/methods_performance/Baselines_results/splits_dataset_statistics}
-    \end{landscape}
-    \clearpage% Flush page
-}
+\begin{landscape}
+\begin{table}[!ht]
+    \centering
+    \input{tables/augmentation/methods_performance/Baselines_results/tdsa_validation_baseline_metrics.tex}
+    \caption{Mean and standard deviation from running each model 8 times on the datasets validation split.}
+    \label{table:aug_methods_baseline_tdsa_metrics_validation}
+\end{table}
+\end{landscape}
+
+\begin{landscape}
+\begin{table}[!ht]
+    \centering
+    \input{tables/augmentation/methods_performance/Baselines_results/tdsa_test_baseline_metrics.tex}
+    \caption{Mean and standard deviation from running each model 8 times on the datasets test split.}
+    \label{table:aug_methods_baseline_tdsa_metrics_test}
+\end{table}
+\end{landscape}
+
+\begin{landscape}
+\begin{table}[!ht]
+        \centering
+        \input{tables/augmentation/methods_performance/Baselines_results/splits_dataset_statistics}
+        \caption{Dataset statistics for each split for all datasets.}
+        \label{table:augmentation_splits_dataset_statistics}
+\end{table}
+\end{landscape}

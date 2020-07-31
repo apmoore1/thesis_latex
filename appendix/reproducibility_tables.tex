@@ -1,0 +1,48 @@
+\begin{table}[!h]
+    \centering
+    \input{tables/reproducibility/vo/appendix/embedding_p_values_accuracy}
+    \caption{P-values for the accuracy metric, testing if SSWE + w2v embedding is significantly better than the other embeddings for each method on each fold of the five-fold cross validation. The five folds came from the \citet{dong-etal-2014-adaptive} Twitter training dataset. All p-values that are significant $\le 0.05$ are in \textbf{bold}.}
+    \label{table:repro_vo_appendix_embedding_p_values_accuracy}
+\end{table}
+
+\begin{table}[!h]
+    \centering
+    \input{tables/reproducibility/vo/appendix/embedding_p_values_macro_f1}
+    \caption{P-values for the macro F1 metric, testing if SSWE + w2v embedding is significantly better than the other embeddings for each method on each fold of the five-fold cross validation. The five folds came from the \citet{dong-etal-2014-adaptive} Twitter training dataset. All p-values that are significant $\le 0.05$ are in \textbf{bold}.}
+    \label{table:repro_vo_appendix_embedding_p_values_macro_f1}
+\end{table}
+
+\begin{table}[!h]
+    \centering
+    \input{tables/reproducibility/vo/appendix/embedding_glove_accuracy_p_values}
+    \caption{P-values for the accuracy metric, testing if GloVe embedding is significantly better than the other embeddings for each method on each fold of the five-fold cross validation. The five folds came from the \citet{dong-etal-2014-adaptive} Twitter training dataset. All p-values that are significant $\le 0.05$ are in \textbf{bold}.}
+    \label{table:repro_vo_appendix_embedding_glove_accuracy_p_values}
+\end{table}
+
+\begin{table}[!h]
+    \centering
+    \input{tables/reproducibility/vo/appendix/embedding_glove_f1_p_values}
+    \caption{P-values for the macro F1 metric, testing if GloVe embedding is significantly better than the other embeddings for each method on each fold of the five-fold cross validation. The five folds came from the \citet{dong-etal-2014-adaptive} Twitter training dataset. All p-values that are significant $\le 0.05$ are in \textbf{bold}.}
+    \label{table:repro_vo_appendix_embedding_glove_f1_p_values}
+\end{table}
+
+\begin{table}[!h]
+    \centering
+    \input{tables/reproducibility/tang/val_embedding_scores}
+    \caption{Validation set mean (standard deviation) results on the \citet{dong-etal-2014-adaptive} Twitter dataset, across various embeddings and methods. The \textbf{bold} values indicate the best embedding score for each method and metric.}
+    \label{table:repro_tang_val_embedding_scores}
+\end{table}
+
+\begin{table}[!h]
+    \centering
+    \input{tables/reproducibility/tang/embeddings_test_sig}
+    \caption{P-values for the one sided significant test on the test set comparing the GloVe embeddings to the other embeddings for each metric and method. The significant test compared the median best run from the $20$ runs that each method, embedding, and metric produced. The \textbf{bold} values indicate all p-values that are significant ($\le 0.05$).}
+    \label{table:repro_tang_embeddings_test_sig}
+\end{table}
+
+\begin{table}[!h]
+    \centering
+    \input{tables/reproducibility/tang/embeddings_val_sig}
+    \caption{P-values for the one sided significant test on the validation set comparing the GloVe embeddings to the other embeddings for each metric and method. The significant test compared the median best run from the $20$ runs that each method, embedding, and metric produced.}
+    \label{table:repro_tang_embeddings_val_sig}
+\end{table}

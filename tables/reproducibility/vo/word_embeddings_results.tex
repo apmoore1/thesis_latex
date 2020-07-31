@@ -1,0 +1,27 @@
+\begin{tabular}{|c|c|M|M|c|M|}
+\hline
+&  & \multicolumn{2}{c|}{Accuracy} & \multicolumn{2}{c|}{macro F1} \\
+\hline
+Method & Embedding &      O &  R &     O &  R \\
+\hline
+\multirow{4}{*}{TI} & w2v &  59.20 \sd{(0.00)} &  \highbox{60.96} \sd{(0.60)} &  - &  56.64 \sd{(0.69)} \\
+& SSWE &  60.70 \sd{(0.00)} &  \highbox{60.58} \sd{(1.08)} &  - &  56.52 \sd{(1.46)} \\
+& SSWE + w2v &  62.30 \sd{(0.00)} &  62.24 \sd{(0.91)} &  - &  59.16 \sd{(0.66)} \\
+& GloVe &   - &  \textbf{63.72} \sd{(1.76)} &  - &  \textbf{61.31} \sd{(1.74)} \\
+\hline
+\multirow{4}{*}{TDM} & w2v &  65.40 \sd{(0.00)} &  65.67 \sd{(1.11)} &  - &  61.38 \sd{(1.29)} \\
+& SSWE &  66.60 \sd{(0.00)} &  66.74 \sd{(0.48)} &  - &  62.77 \sd{(0.78)} \\
+& SSWE + w2v &  67.60 \sd{(0.00)} &  \textbf{67.46} \sd{(1.04)} &  - &  \textbf{64.18} \sd{(1.18)} \\
+& GloVe &   - &  67.41 \sd{(0.78)} &  - &  64.11 \sd{(0.82)} \\
+\hline
+\multirow{4}{*}{TD} & w2v &  65.70 \sd{(0.00)} &  \highbox{66.81} \sd{(0.86)} &  - &  62.66 \sd{(1.16)} \\
+& SSWE &  66.70 \sd{(0.00)} &  \highbox{66.37} \sd{(0.59)} &  - &  62.41 \sd{(0.81)} \\
+& SSWE + w2v &  68.30 \sd{(0.00)} &  68.02 \sd{(0.82)} &  - &  64.90 \sd{(0.91)} \\
+& GloVe &   - &  \textbf{68.69} \sd{(1.13)} &  - &  \textbf{65.68} \sd{(1.24)} \\
+\hline
+\multirow{4}{*}{TDP} & w2v &  67.40 \sd{(0.00)} &  \highbox{68.37} \sd{(1.17)} &  - &  65.04 \sd{(1.39)} \\
+& SSWE &  67.90 \sd{(0.00)} &  \highbox{67.72} \sd{(1.11)} &  - &  64.39 \sd{(1.54)} \\
+& SSWE + w2v &  69.10 \sd{(0.00)} &  \textbf{69.05} \sd{(1.19)} &  - &  66.34 \sd{(1.41)} \\
+& GloVe &   - &  68.98 \sd{(1.09)} &  - &  \textbf{66.39} \sd{(1.23)} \\
+\hline
+\end{tabular}
