@@ -2,11 +2,12 @@
 \documentclass[11pt]{report}
 %\usepackage[a4paper, left=38mm, right=25mm, top=25mm, bottom=25mm,includeheadfoot]{geometry}
 \usepackage{geometry}
+\setlength{\parindent}{17pt}
 
 \usepackage[utf8]{inputenc}
 \usepackage{graphicx}
 \graphicspath{ {images/} }
-\usepackage[backend=bibtex,style=authoryear,doi=false,maxcitenames=1,natbib]{biblatex}
+\usepackage[backend=bibtex,style=authoryear,doi=false,maxcitenames=1,maxbibnames=3,natbib]{biblatex}
 \usepackage{hyperref}
 \hypersetup{
     colorlinks=false,
@@ -57,6 +58,9 @@
 % Select what to do with todonotes: 
 % \usepackage[disable]{todonotes} % notes not showed
 \usepackage[draft]{todonotes}   % notes showed
+\newcommand{\langcorrections}[1]{\todo[color=red]{#1}}
+\newcommand{\questioncorrections}[1]{\todo[color=blue]{#1}}
+\newcommand{\commentcorrections}[1]{\todo[color=green]{#1}}
 % Select what to do with command \comment:  
 % \newcommand{\comment}[1]{}  %comment not showed
 \newcommand{\comment}[1]
@@ -113,6 +117,25 @@
 \usepackage{datetime}
 \newdateformat{monthyeardate}{%
   \monthname[\THEMONTH], \THEYEAR}
+
+% Highlighting my own name in the references section
+\usepackage{xpatch}% or use http://tex.stackexchange.com/a/40705
+\makeatletter
+\newbibmacro*{name:bold}[2]{%
+  \edef\blx@tmp@name{\expandonce#1, \expandonce#2}%
+  \def\do##1{\ifdefstring{\blx@tmp@name}{##1}{\bfseries\listbreak}{}}%
+  \dolistloop{\boldnames}}
+\newcommand*{\boldnames}{}
+\makeatother
+\xpretobibmacro{name:family}{\begingroup\usebibmacro{name:bold}{#1}{#2}}{}{}
+\xpretobibmacro{name:given-family}{\begingroup\usebibmacro{name:bold}{#1}{#2}}{}{}
+\xpretobibmacro{name:family-given}{\begingroup\usebibmacro{name:bold}{#1}{#2}}{}{}
+\xpretobibmacro{name:delim}{\begingroup\normalfont}{}{}
+
+\xapptobibmacro{name:family}{\endgroup}{}{}
+\xapptobibmacro{name:given-family}{\endgroup}{}{}
+\xapptobibmacro{name:family-given}{\endgroup}{}{}
+\xapptobibmacro{name:delim}{\endgroup}{}{}
 
 \newgeometry{a4paper, left=38mm, right=25mm, top=25mm, bottom=25mm,includeheadfoot}
 
@@ -182,20 +205,28 @@ A thesis submitted for the degree of \textit{Doctor of Philosophy}. \monthyearda
 \clearpage
 
 \section*{\centering Publications}
-Only one publication, shown below, has been created directly from the thesis, from which large portions of this published work is used within chapter \ref{chapter:reproducibility}:\bigskip
+Only one publication, shown below, has been created directly from the thesis, from which large portions of this published work is used within chapter \ref{chapter:reproducibility}:\bigskip\langcorrections{Formatting of the references to list all authors and bold my own name, completed.}
 
+% reference: https://gist.github.com/michaelplews/8667a11762c2406ae0ae49ffb49b54c6
+\forcsvlist{\listadd\boldnames} % Makes the name Andrew Moore bold. Andrew Moore is the author of the thesis
+  {{Moore, Andrew}, {Andrew, Moore}}
+\AtNextCitekey{\defcounter{maxnames}{99}}
 \noindent \fullcite{moore-rayson-2018-bringing}\vspace{24pt}
 
 \noindent The following publication have been generated while developing this thesis, and to an extent has guided the thesis into what it has become:\bigskip
 
+\AtNextCitekey{\defcounter{maxnames}{99}}
 \noindent \fullcite{moss-etal-2019-fiesta}\bigskip
 
+\AtNextCitekey{\defcounter{maxnames}{99}}
 \noindent \fullcite{moore-rayson-2017-lancaster}\bigskip
 
+\AtNextCitekey{\defcounter{maxnames}{99}}
 \noindent \fullcite{el-haj-etal-2016-learning}\bigskip
 
+\AtNextCitekey{\defcounter{maxnames}{99}}
 \noindent \fullcite{moore2016domain}
-
+\renewcommand*{\boldnames}{} % Ensures that if you cite yourself then your name is not bold in the bibliography section.
 \clearpage
 
 \tableofcontents
