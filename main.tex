@@ -87,16 +87,16 @@
 \definecolor{lightblue}{RGB}{200,245,255}
 \definecolor{lightred}{RGB}{255,200,200}
 \definecolor{lightgrey}{RGB}{215,215,215}
-\definecolor{lightgreen}{RGB}{144,238,144}
+\definecolor{lightgreen}{RGB}{144,238,144} % All of these four colours have good contrast.
 \newcommand{\posbox}[1]{{\setlength{\fboxsep}{1pt}\colorbox{lightblue}{#1}}}
 \newcommand{\negbox}[1]{{\setlength{\fboxsep}{1pt}\colorbox{lightred}{#1}}}
 \newcommand{\neubox}[1]{{\setlength{\fboxsep}{1pt}\colorbox{lightgrey}{#1}}}
 \newcommand{\highbox}[1]{{\setlength{\fboxsep}{1pt}\colorbox{lightgreen}{#1}}}
 
-\newcolumntype{k}{>{\columncolor{pink}}p{0.4cm}}
-\newcolumntype{g}{>{\columncolor{green}}p{0.4cm}}
-\newcolumntype{y}{>{\columncolor{yellow}}p{0.4cm}}
-\newcolumntype{d}{>{\columncolor{gray}}p{0.4cm}}
+\newcolumntype{k}{>{\columncolor{lightred}}p{0.4cm}}
+\newcolumntype{g}{>{\columncolor{lightgreen}}p{0.4cm}}
+\newcolumntype{y}{>{\columncolor{lightblue}}p{0.4cm}}
+\newcolumntype{d}{>{\columncolor{lightgrey}}p{0.4cm}}
 \newcolumntype{M}{>{\centering\arraybackslash}p{1.2cm}}
 \usepackage{pifont}
 \newcommand{\cmark}{\ding{51}}
