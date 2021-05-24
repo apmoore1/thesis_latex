@@ -4,7 +4,7 @@ As clearly shown within table \ref{table:repro_methods_datasets_used} of the rep
 
 %Furthermore within the TDSA literature there have been many general developments with regards to improvements that are to some extent agnostic to the Neural Network (NN) architecture they are applied to. The general developments of note for this chapter are; encoding the target's position (position encoding) \citep{gu-etal-2018-position}, inter-target encoding where each target is aware of all of targets within the same text \citep{hazarika-etal-2018-modeling}, and transfer learning from Bi-directional Language Models (BiLM) \citep{sun-etal-2019-utilizing,xu-etal-2019-bert} (also known as Contextualised Word Representations (CWR) which is what they will be called from now on). Of these developments, only the first two are TDSA specific where as the transfer learning is a general machine learning concept that has been shown useful in many NLP tasks \citep{peters-etal-2018-deep}. These developments have been mainly justified by the improvements on the overall accuracy and/or macro F1 score, but the justification in the paper is normally more detailed. An example justification (and one that is typical of most developments) of inter-target encoding from \citet{hazarika-etal-2018-modeling}, where they first show improvements on the general accuracy scores over baselines. They then further state these improvements are due to the model being able to infer one target's sentiment from knowing another target's sentiment, and show this through a case study (section 4.2) from a few samples. The reason for inter-target encoding does sound valid and the case studies do help this, however qualitative case studies are hard to quantify from these papers and to a large extent impossible to compare. Furthermore in both position and inter-target encoding there have been papers by \citet{he-etal-2018-exploiting} and \citet{majumder-etal-2018-iarm} that respectively use more detailed quantitative metrics through their own error splits to justify these improvement. However the error splits used in both cases are shown within this chapter to be unsuitable as they both measure other factors that the original authors did not know they were measuring.
 
-The focus of this chapter is to answer~\rqref{rq:measured}  `What is an appropriate empirical evaluation methodology for TDSA?'. To answer this question, we first compare and contrast the different existing error analysis splits for TDSA, as well as better formalising these splits so that they can be applied to any dataset. From these existing error splits, two novel splits and a novel metric are created. These error splits are then applied to the results of three different TDSA models and one text classification model to first justify to some extent what the splits are measuring, and secondly compare the different models performance on these splits and metrics as baselines. From the baseline results the error splits and metrics are reviewed and recommendations of what error splits and metrics should be used and why are given. 
+The focus of this chapter is to answer~\rqref{rq:measured}  `What is an appropriate empirical evaluation methodology for TDSA?'. To answer this question, we first compare and contrast the different existing error analysis splits for TDSA, as well as better formalising these splits so that they can be applied to any dataset. From these existing error splits, two novel splits and a novel metric are created. These error splits are analysed through the results of three different TDSA models and one text classification model to first justify to some extent what the splits are measuring, and secondly compare the different models performance on these splits and metrics as baselines. From the baseline results the error splits and metrics are reviewed and recommendations of what error splits and metrics should be used and why are given. 
 %Finally these three baseline TDSA models are then enhanced (when appropriate) with position encoding, inter-target encoding, and CWR to quantify how these different developments enhance the models through the error splits. The results from these splits and metrics for the position and inter-target encoding enhancements will for the first time quantify the theory behind the developments, and in contrast to previous work, we use suitable error analysis splits and a more rigorous experimental setup\footnote{This is through statistical testing, comparing across more models and datasets, and in the inter-target encoding setup comparing to a more suitable baseline model.}. The results from the CWR will be the first detailed quantifiable results that should highlight what the models are not capturing and should help guide future state-of-the-art TDSA models. 
 These formalised error splits and novel metrics will allow future researchers to better understand what the models are and are not capturing without having to resort to qualitative case studies and will benefit from fair, easy, and reproducible comparisons between works. Lastly to ensure all the results and analyses are performed on varying and standard datasets in the field, all experiments in this chapter are performed on three public English datasets: 1. SemEval 2014 Laptop~\citep{pontiki-etal-2014-semeval} (Laptop), 2. SemEval 2014 Restaurant~\citep{pontiki-etal-2014-semeval} (Restaurant), and 3. Election Twitter~\citep{wang-etal-2017-tdparse} (Election). All three of these datasets have been introduced in chapter \ref{chapter:reproducibility} section \ref{section:repro_experimental_setup}, and overall dataset descriptions and statistics can be found in tables \ref{table:repro_dataset_stats} and \ref{table:repro_dataset_sent_dist}.
 
@@ -56,10 +56,7 @@ The \textit{TSSR} split can be seen to be very similar to the \textit{DS} split 
 
 Summaries of the differences in the error splits introduced in this section and section \ref{section:aug_error_analysis_previous_work} can be seen in table \ref{table:aug_error_split_summary}. Examples for each of these splits and subsets can be found in table \ref{table:aug_error_split_examples}.
 
-\afterpage{%
-    %\clearpage% Flush earlier floats (otherwise order might not be correct)
-    %\clearpage% Flush page
-    \thispagestyle{document}
+\afterpage{
     \begin{landscape}% Landscape page
             \centering
             \input{tables/augmentation/error_analysis/split_table.tex}
@@ -70,18 +67,9 @@ Summaries of the differences in the error splits introduced in this section and 
         \caption{Examples of TDSA samples split into training and test datasets, where each example states the error split that the target will be put within. All examples have come from the Election Twitter dataset \citep{wang-etal-2017-tdparse}.}
         \label{table:aug_error_split_examples}
     \end{table}
-    \clearpage
 }
 
 \newpage
-
-
-
-
-
-
-
-
 \FloatBarrier
 \subsection[Analysing the splits]{Analysing the splits\footnote{All empirical tables and graphs within this section have been generated through the following notebook \url{https://github.com/apmoore1/tdsa_comparisons/blob/master/analysis/TDSA_Error_Analysis.ipynb}.}}
 \label{section:aug_analysing_the_splits}
@@ -91,7 +79,7 @@ The \textit{DS} split subsets can be seen in both table \ref{table:aug_error_ana
 \begin{figure}[h!]
     \begin{floatrow}
         \ffigbox[5cm]{
-          \includegraphics[scale=0.5]{images/augmentation/error_analysis/DS.png}
+          \includegraphics[scale=0.6]{images/augmentation/error_analysis/DS.png}
         }{
           \caption{Percentage of samples per \textit{DS} data subset.}
           \label{fig:aug_error_analysis_ds}
@@ -109,13 +97,13 @@ The \textit{NT} split, unlike the \textit{DS} split, has a continuous number of 
 \begin{figure}[h!]
     \begin{floatrow}
         \ffigbox{
-          \includegraphics[scale=0.5]{images/augmentation/error_analysis/NT_continuous.png}
+          \includegraphics[scale=0.6]{images/augmentation/error_analysis/NT_continuous.png}
         }{
           \caption{Percentage of samples per $NT_i$ subset.}
           \label{fig:aug_error_analysis_nt_continuous}
         }
         \ffigbox{
-          \includegraphics[scale=0.5]{images/augmentation/error_analysis/NT_discrete.png}
+          \includegraphics[scale=0.6]{images/augmentation/error_analysis/NT_discrete.png}
         }{
           \caption{Percentage of samples per \textit{NT} data subset.}
           \label{fig:aug_error_analysis_nt_discrete}
@@ -146,14 +134,14 @@ Thus these two criteria therefore will measure the method's ability to identify 
 
 \begin{figure}[!ht]
     \centering
-    \includegraphics[scale=0.35]{images/augmentation/error_analysis/tssr_full_range.png}
+    \includegraphics[scale=0.42]{images/augmentation/error_analysis/tssr_full_range.png}
     \caption{The right (left) plot shows the cumulative sample count (percentage) for decreasing values of \textit{TSSR}.}
     \label{fig:aug_error_analysis_tssr_full}
 \end{figure}
 
 \begin{figure}[!ht]
     \centering
-    \includegraphics[scale=0.35]{images/augmentation/error_analysis/tssr_small_range.png}
+    \includegraphics[scale=0.42]{images/augmentation/error_analysis/tssr_small_range.png}
     \caption{The left plot shows the cumulative sample count percentage for decreasing values of \textit{TSSR} starting from $0.5$. The right plot shows the same as the left but for the full range of \textit{TSSR} values but excluding the Election dataset.}
     \label{fig:aug_error_analysis_tssr_small}
 \end{figure}
@@ -177,7 +165,7 @@ Within figure \ref{fig:aug_error_analysis_tssr_subsets} and table \ref{table:aug
 
 \begin{figure}[!ht]
     \centering
-    \includegraphics[scale=0.5]{images/augmentation/error_analysis/tssr_subsets.png}
+    \includegraphics[scale=0.6]{images/augmentation/error_analysis/tssr_subsets.png}
     \caption{Percentage of samples per \textit{TSSR} subset.}
     \label{fig:aug_error_analysis_tssr_subsets}
 \end{figure}
@@ -200,7 +188,7 @@ To further understand the relationship between the \textit{TSSR} split and the \
 
 \begin{figure}[!ht]
     \centering
-    \includegraphics[scale=0.4]{images/augmentation/error_analysis/tssr_nt_ds.png}
+    \includegraphics[scale=0.52]{images/augmentation/error_analysis/tssr_nt_ds.png}
     \caption{Percentage of samples per \textit{TSSR} subset broken down by \textit{NT} and \textit{DS} splits.}
     \label{fig:aug_error_analysis_tssr_ds_nt_breakdown}
 \end{figure}
@@ -209,7 +197,7 @@ Similar to \textit{NT}, and \textit{TSSR} the \textit{n-shot} split has differen
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[scale=0.35]{images/augmentation/error_analysis/n_shot_cuml.png}
+    \includegraphics[scale=0.42]{images/augmentation/error_analysis/n_shot_cuml.png}
     \caption{The right (left) plot shows the cumulative sample count (percentage) for increasing values of \textit{n}.}
     \label{fig:aug_n_shot_cuml}
 \end{figure}
@@ -218,7 +206,7 @@ This analysis suggests that the \textit{n-shot} split should be broken up into f
 
 \begin{figure}[!ht]
     \centering
-    \includegraphics[scale=0.5]{images/augmentation/error_analysis/n_shot_discrete.png}
+    \includegraphics[scale=0.6]{images/augmentation/error_analysis/n_shot_discrete.png}
     \caption{Percentage of samples per \textit{n-shot} data subset.}
     \label{fig:aug_error_analysis_n_shot_discrete}
 \end{figure}
@@ -249,7 +237,7 @@ This analysis suggests that the \textit{n-shot} split should be broken up into f
 \begin{figure}[ht!]
     \begin{floatrow}
         \ffigbox{
-          \includegraphics[scale=0.5]{images/augmentation/error_analysis/TRS.png}
+          \includegraphics[scale=0.6]{images/augmentation/error_analysis/TRS.png}
         }{
           \caption{Percentage of samples per \textit{TRS} data subset.}
           \label{fig:aug_error_analysis_trs}
@@ -330,7 +318,7 @@ Figure \ref{fig:aug_baseline_overall_scores} shows the results of the baseline m
 
 \begin{figure}[ht!]
     \centering
-    \includegraphics[scale=0.3]{images/augmentation/methods_performance/baseline/baseline_overall_scores.pdf}
+    \includegraphics[scale=0.4]{images/augmentation/methods_performance/baseline/baseline_overall_scores.pdf}
     \caption{The mean and standard deviation error bars from running each model 8 times.}
     \label{fig:aug_baseline_overall_scores}
 \end{figure}
@@ -341,7 +329,7 @@ Figure \ref{fig:aug_baseline_replication_scores} compares the single run perform
 
 \begin{figure}[ht!]
     \centering
-    \includegraphics[scale=0.32]{images/augmentation/methods_performance/baseline/replication_experiment_baseline.pdf}
+    \includegraphics[scale=0.4]{images/augmentation/methods_performance/baseline/replication_experiment_baseline.pdf}
     \caption{Distribution of all scores and the line represents the mean value, of which for the original models this line represents their only reported score. Model names with a \textit{(O)} represent the score reported in the original models paper.}
     \label{fig:aug_baseline_replication_scores}
 \end{figure}
@@ -367,7 +355,7 @@ This thesis shows for the first time that not all TDSA models are statistically 
 The performance of all of the models across all datasets for each split and their associated subsets can be seen in figure \ref{fig:aug_baseline_test_error_subset} (appendix \ref{appendix_augmentation_figures} figure \ref{fig:aug_baseline_validation_error_subset} shows the validation split results). The figures that contain subset performance results will not contain results for the $DS_3$ subset for the Laptop and Restaurant datasets, this is due to the subset containing very few samples as highlighted in subsection \ref{section:aug_analysing_the_splits}. The error split results for the test and validation splits are better highlighted in figures \ref{fig:aug_baseline_test_error_diff_subset} and \ref{fig:aug_baseline_validation_error_diff_subset} respectively where the accuracy on the whole dataset (overall accuracy) is subtracted from the error subset accuracies. These figures can thus evaluate the error splits that were discussed and created within this section. In the list below the results will be analysed by error split:
 
 \begin{itemize}
-    \item \textit{DS} split, as expected, increases in difficulty as the number of unique sentiments in the text increases, thus showing that target sentiment relation to be a difficult task for the model to perform. Furthermore, it can be seen that on average the \textit{TDLSTM} model performs consistently well on the $DS_2$ and $DS_3$ subsets compared to the other models.
+    \item \textit{DS} split, as expected, increases in difficulty as the number of unique sentiments in the text increases, thus showing that target sentiment relation to be a difficult task for the models to perform. Furthermore, it can be seen that on average the \textit{TDLSTM} model performs consistently well on the $DS_2$ and $DS_3$ subsets compared to the other models.
     \item \textit{NT} split does not have a consistent affect on the performance of the models, this was also found in one of the original papers \citep{zhang-etal-2019-aspect}. One would expect texts that contain a lot of targets to be more difficult and at times it is as shown by the Restaurant dataset. However, on the other two datasets this is not the case. Furthermore, the performance across the subsets can differ between datasets splits, e.g. the performance of all models on the \textit{med-targets} subset on the Election dataset is worse than \textit{high-targets} for all models on the test split but on the validation figure (\ref{fig:aug_baseline_validation_error_diff_subset}) the opposite is true. This would suggest that even though theoretically a text with more targets should be more difficult for a model to classify, due to the complexities of matching targets to their respective sentiments \citep{zhang-etal-2019-aspect}, this is not the case. Thus later in this section, analysis is conducted to investigate what other factors are influencing the change in performance within the \textit{NT} split. However, for now it can be concluded that \textit{NT} cannot effectively evaluate the target interaction as no consistent trend can be found in this split.
     \item \textit{TSSR} As expected the \textit{1-Multi} subset is by far the easiest subset to classify suggesting that the models are exploiting the fact that all targets have the same sentiment. The \textit{1} subset tends to perform the next best with the \textit{high} subset at times quite close if not the same. A reason for the \textit{high} subset to have such high performance across the models could be due to the models overfitting to the most frequent sentiment class in the text, as suggested in section \ref{section:aug_error_analysis}. As expected the \textit{low} subset is by far the worst across all datasets and models and in some cases harder to classify than samples within $DS_2$ and $DS_3$. Only on the Laptop test split are the \textit{high} scores similar to the \textit{low}, of which this might be due to the lack of samples for the \textit{high} subset (5\% of the dataset) compared to the (11.1\% of the dataset) in the \textit{low} subset, which is also suggested by the large error bars. Furthermore the sentiment overfitting which this split is supposed to measure does show to some extent where the TDSA model, \textit{TDLSTM}, that performs consistently better or at least as good in the $DS_2$ and $DS_3$ subsets tends to have a smaller difference between subset \textit{1-Multi} and \textit{1}, and is consistently a lot higher than the text classifier on the \textit{low} subset. However this split does not measure sentiment overfitting explicitly very well without the text classification baseline and the \textit{DS} split. For example without \textit{DS} and the text classification baseline it would be impossible to know that the \textit{TDLSTM} is performing target sentiment relation well on the laptop dataset as the $DS_2$ subset performance could be high due to \textit{TDLSTM} predicting the most frequent sentiment class. This cannot be the case as the performance of \textit{TDLSTM} on the \textit{high} and \textit{low} \textit{TSSR} subsets are both above the text classification model unlike the other two TDSA models. Though this is a rather loose way of measuring sentiment overfitting and is not the way that was stated in the previous subsection \ref{section:aug_analysing_the_splits}. In the previous  subsection \ref{section:aug_analysing_the_splits} the difference between the \textit{high} and \textit{low} subsets was hypothesised to indicate sentiment overfitting, but as can be seen from the figures \textit{TDLSTM} that is supposed to not be overfitting as much as the other TDSA models does indeed contain a low difference between \textit{high} and \textit{low} on the Laptop dataset, but so does \textit{IAN} thus making the hypothesis less likely to be true. Therefore to conclude on the \textit{TSSR} split, it cannot measure sentiment overfitting nor would it be able to measure target interaction as suggested in \ref{section:aug_analysing_the_splits} either as it would be impossible to know if it was target interaction or sentiment overfitting. However there are clear signs that the subsets measure to some degree target sentiment relation as the score of subsets \textit{1}, \textit{high}, and \textit{low} are similar in order to subsets $DS_1$, $DS_2$, and $DS_3$ respectively and these subsets co-occur frequently as shown in figure \ref{fig:aug_error_analysis_tssr_ds_nt_breakdown}. Thus after this subsection the \textit{TSSR} split will no longer be used. 
     \item \textit{TSR} again the finding is expected where the \textit{USKT} is by far the most difficult subset. The \textit{UT} is more difficult in general than the \textit{KSKT} but with a much smaller margin. This finding is therefore in line with the relation extraction literature where unknown entities are easier to predict than unknown relations \citep{levy-etal-2017-zero,abdou-etal-2019-x}. Within the validation results for the Election dataset the margin between \textit{UT} and \textit{KTKS} is very small. This very much suggests that the models do require a certain amount of supervision for all targets in all sentiment classes or else they bias the target more towards one sentiment class than another. This type of bias can be very harmful as shown by the \textit{USKT}. This could suggest a reason why the margin between \textit{UT} and \textit{KSKT} is so small as some of the \textit{KSKT} targets might not occur in enough samples within a sentiment class. Furthermore the \textit{KSKT} subset can be seen as the upper limit for the other two subsets as it can be seen as the data rich subset.
@@ -380,14 +368,14 @@ From the test and validation results in figures \ref{fig:aug_baseline_test_error
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[scale=0.3]{images/augmentation/methods_performance/baseline/test_error_subsets.pdf}
+    \includegraphics[scale=0.45]{images/augmentation/methods_performance/baseline/test_error_subsets.pdf}
     \caption{The mean and standard deviation error bars for each error subset within all of the error splits on the test split across all datasets.}
     \label{fig:aug_baseline_test_error_subset}
 \end{figure}
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[scale=0.3]{images/augmentation/methods_performance/baseline/test_error_diff_subsets.pdf}
+    \includegraphics[scale=0.45]{images/augmentation/methods_performance/baseline/test_error_diff_subsets.pdf}
     \caption{The mean and standard deviation error bars for the difference between the overall accuracy and the accuracy from each error subset within all of the error splits on the test split across all datasets.}
     \label{fig:aug_baseline_test_error_diff_subset}
 \end{figure}
@@ -401,29 +389,27 @@ Using the test and validation results from the subsets shown in figures \ref{fig
 
 \begin{figure}[ht!]
     \centering
-    \includegraphics[scale=0.4]{images/augmentation/methods_performance/baseline/baseline_dataset_error_subset_heatmap.pdf}
+    \includegraphics[scale=0.45]{images/augmentation/methods_performance/baseline/baseline_dataset_error_subset_heatmap.pdf}
     \caption{Plots in the first column represent the number of TDSA models that are statistically significantly better than the text classification model. Plots in the second column show the opposite, the number of TDSA models where the text classification is statistically significantly better. All plots have a confidence level of 95\% ($p \leq 0.05$).}
     \label{fig:aug_baseline_dataset_error_subset_heatmap}
 \end{figure}
 
 \begin{figure}[ht!]
     \centering
-    \includegraphics[scale=0.4]{images/augmentation/methods_performance/baseline/baseline_combined_dataset_error_subset_heatmap.pdf}
+    \includegraphics[scale=0.5]{images/augmentation/methods_performance/baseline/baseline_combined_dataset_error_subset_heatmap.pdf}
     \caption{Plots in the first column represent the number of TDSA models that are statistically significantly better than the text classification model across all datasets. Plots in the second column show the opposite, the number of TDSA models where the text classification is statistically significantly better. All plots have a confidence level of 95\% ($p \leq 0.05$) and have been corrected using Bonferroni.}
     \label{fig:aug_baseline_combined_dataset_error_subset_heatmap}
 \end{figure}
 
 
-\afterpage{%
-    %\clearpage% Flush earlier floats (otherwise order might not be correct)
-    \thispagestyle{document}
+\afterpage{
     \begin{landscape}% Landscape page
             \centering
             \input{tables/augmentation/methods_performance/Baselines_results/combined_dataset_stats}
     \end{landscape}
-    \clearpage% Flush page
 }
 
+\newpage
 \FloatBarrier
 \subsubsection{Comparing the Error Split Results to the Prior Work}
 \label{section:augmentation_cwr_comparing_to_prior_work_new}
@@ -444,13 +430,13 @@ As found earlier in figures \ref{fig:aug_baseline_test_error_subset} and \ref{fi
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[scale=0.35]{images/augmentation/methods_performance/baseline/baseline_ds_nt_test_scores.pdf}
+    \includegraphics[scale=0.42]{images/augmentation/methods_performance/baseline/baseline_ds_nt_test_scores.pdf}
     \caption{Each plot shows the performance (y-axis accuracy) of the given models and sample size of the data evaluated on (y-axis dataset size) on the different test datasets (columns) after being subsetted by the relevant \textit{DS} subset (rows) and then NT subset (x-axis).}
     \label{fig:aug_baseline_ds_nt_test_scores}
 \end{figure}
 \begin{figure}[h!]
     \centering
-    \includegraphics[scale=0.35]{images/augmentation/methods_performance/baseline/baseline_tssr_nt_test_scores.pdf}
+    \includegraphics[scale=0.42]{images/augmentation/methods_performance/baseline/baseline_tssr_nt_test_scores.pdf}
     \caption{Each plot shows the performance (y-axis accuracy) of the given models and sample size of the data evaluated on (y-axis dataset size) on the different test datasets (columns) after being subsetted by the relevant \textit{TSSR} subset (rows) and then NT subset (x-axis).}
     \label{fig:aug_baseline_tssr_nt_test_scores}
 \end{figure}
@@ -459,7 +445,7 @@ The $DS_i$ split was stated to get more difficult as $i$ increased and this has 
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[scale=0.3]{images/augmentation/methods_performance/baseline/sentiment_f1_ds_all.pdf}
+    \includegraphics[scale=0.4]{images/augmentation/methods_performance/baseline/sentiment_f1_ds_all.pdf}
     \caption{Macro F1 score where the data is subsetted by the \textit{DS} split.}
     \label{fig:aug_baseline_sentiment_f1_ds_all}
 \end{figure}
@@ -468,7 +454,7 @@ To investigate why the Election test dataset does have a different trend when us
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[scale=0.3]{images/augmentation/methods_performance/baseline/sentiment_f1_ds_election.pdf}
+    \includegraphics[scale=0.4]{images/augmentation/methods_performance/baseline/sentiment_f1_ds_election.pdf}
     \caption{The Election test and validation split F1 scores for each sentiment label, where the data has been further broken down through \textit{DS} subsets.}
     \label{fig:aug_baseline_sentiment_f1_ds_election}
 \end{figure}
@@ -477,13 +463,13 @@ To further investigate whether the most frequent sentiment class always has this
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[scale=0.3]{images/augmentation/methods_performance/baseline/sentiment_f1_ds_restaurant.pdf}
+    \includegraphics[scale=0.4]{images/augmentation/methods_performance/baseline/sentiment_f1_ds_restaurant.pdf}
     \caption{The Restaurant test and validation split F1 scores for each sentiment label, where the data has been further broken down through \textit{DS} subsets.}
     \label{fig:aug_baseline_sentiment_f1_ds_restaurant}
 \end{figure}
 \begin{figure}[h!]
     \centering
-    \includegraphics[scale=0.3]{images/augmentation/methods_performance/baseline/sentiment_f1_ds_laptop.pdf}
+    \includegraphics[scale=0.4]{images/augmentation/methods_performance/baseline/sentiment_f1_ds_laptop.pdf}
     \caption{The Laptop test and validation split F1 scores for each sentiment label, where the data has been further broken down through \textit{DS} subsets.}
     \label{fig:aug_baseline_sentiment_f1_ds_laptop}
 \end{figure}
@@ -516,7 +502,7 @@ The \textit{STAC Multi} gives in one metric how well overall a TDSA model is at 
 
 \begin{figure}[ht!]
     \centering
-    \includegraphics[scale=0.32]{images/augmentation/methods_performance/baseline/baseline_stac_scores.pdf}
+    \includegraphics[scale=0.4]{images/augmentation/methods_performance/baseline/baseline_stac_scores.pdf}
     \caption{Performance across all metrics for all models across all datasets and splits.}
     \label{fig:baseline_stac_scores.png}
 \end{figure}
