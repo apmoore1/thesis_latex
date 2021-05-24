@@ -69,6 +69,7 @@ The second half of the chapter explores \rqref{rq:generalisable} `how generalisa
 %\\
 %In summary this chapter demonstrates the importance of parameters within TDSA methods and how these relate to the replicability of the method from the paper. Lastly it highlights the under utilisation of English datasets within TDSA and the importance of them with regards to generalisability of methods within TDSA. The chapter is structured as follows; first explain the three different methods that are being replicated. The second section shows how they were successfully replicated. The third section reveals the importance of different parameters within a method and the importance of these parameters in replicating the original work. The last section presents the mass evaluation results.
 
+\FloatBarrier
 \section{Related Work}
 Reproducibility and replicability have long been key elements of the scientific method, but have been gaining renewed prominence recently across a number of disciplines with attention being given to a `reproducibility crisis'. For example, in pharmaceutical research, as little as 20-25\% of papers were found to be replicable \citep{prinz2011believe}. The problem has also been recognised in computer science in general \citep{collberg2016repeatability}. Reproducibility and replicability have been researched for sometime in  Information Retrieval (IR) since the Grid@CLEF pilot track \citep{ferro2009clef}. The aim was to create a `grid of points' where a point defined the performance of a particular IR system using certain pre-processing techniques on a defined dataset.
 \citet{louridas2012note} looked at reproducibility in Software Engineering after trying to replicate another author's results and concluded with a list of requirements for papers to be reproducible: (a) All data related to the paper, (b) All code required to reproduce the paper, and (c) Documentation for the code and data. \citet{fokkens-etal-2013-offspring} looked at reproducibility in WordNet similarity and Named Entity Recognition, finding five key aspects that cause experimental variation and therefore need to be clearly stated: (a) pre-processing, (b) experimental setup, (c) versioning, (d) system output, and (e) system variation. In Twitter sentiment analysis, \citet{sygkounas2016replication} stated the need for using the same software library versions and datasets when replicating work.
@@ -92,6 +93,8 @@ More recently within the NLP and ML fields there has been a growing consensus ar
 
 More closely related to TDSA, \citet{marrese-taylor-matsuo-2017-replication} attempted to reproduce three different syntactic target extraction methods. They found that parameter tuning was very important, however using different pre-processing pipelines such as Stanford's CoreNLP did not have a consistent effect on the results. They found that the methods stated in the original papers are not detailed enough to reproduce the study as evidenced by their large results differential. Within sentiment classification at the document level \citet{dashtipour2016multilingual} reproduced numerous non Neural Network (NN) multilingual methods and applied them all to the same two datasets so that the methods can be easily compared. At the sentence level \citet{barnes-etal-2017-assessing} compares seven NN and non-NN approaches on six datasets, where many of these datasets have only been benchmarked against one approach. They found a bi-directional LSTM to be on average the most effective approach, and further found that using pre-trained sentiment embeddings from lexically similar data as the training data greatly improves results. Lastly within TDSA, \citet{chen-etal-2017-recurrent} reproduced multiple methods and created their own methods, which they then applied to four datasets, which contain two different languages, different domains, and types, but all come from the same medium, written text. Thus, this chapter presents the first reproduction study within TDSA. Also using the methods reproduced that are known to reflect the original paper's implementation, the largest to date study of generalisation within TDSA within the English language that spans six datasets with different types, domains, and mediums.
 
+
+\FloatBarrier
 \section{Methods}
 \label{section:repro_methods}
 % In this section I need to introduce the three methods that I am going to replicate, the reason these were chosen other than they are popular within the literature. Then go throught each method explaining the method and showing a diagram of the method.
@@ -105,6 +108,7 @@ In this chapter, three popular TDSA methods are reproduced, two NP; \citet{vo201
 
 %We then expand the evaluation setup to include more datasets to increase the coverage and generalisability of the results from these methods. Using this expanded evaluation setup we explore the importance of different parts of these methods and outline which are the most volatile to change with respect to the results. Furthermore due to the increase in the expanded datasets we can find out whether different parameter are more sensitive to different domains, mediums, and/or types.  
 
+\FloatBarrier
 \subsection{Neural Pooling}
 %  They take the word vectors of the left and right side of the target word, as well as the target word and full text.
 The \citet{vo2015target} NP method is the simplest of the three methods being presented within the chapter. As shown in figure \ref{fig:repro_np_architecture} it treats each word in the sentence as a word vector that has come from a pre-trained word embedding model, e.g. GloVe \citep{pennington-etal-2014-glove}. From this the method splits the sentence into four different contexts based on the target word(s) position:
@@ -157,6 +161,7 @@ Overall the general architecture of \citet{vo2015target} can then be summarised 
 \newpage
 
 
+\FloatBarrier
 \subsection{Neural Pooling with Dependency Parsing}
 The \citet{wang-etal-2017-tdparse} method is a direct extension of \citet{vo2015target} where they keep the same NP methods and general architecture but change the contexts. The main motivation of \citet{wang-etal-2017-tdparse} is to improve the simple interaction of the different contexts by incorporating the syntactic structure of the target word using a dependency parser. In more detail this dependency context contains the target word and all connected words within the same root. This makes the assumption that the dependency parser that is used can create multiple roots from one text as it assumes the text is made of more than one sentence. If the dependency parser does not create more than one root in a text then the dependency context will be the same as the whole context\footnote{More precisely it will be the same as the whole context with the target word(s) removed, so very similar to the whole context. A python notebook demonstrating the fact that the authors used the dependency parser (TweeboParser) like this and if another parser is used e.g. Stanford the dependency context will be similar to the whole context can be found here: \url{https://github.com/apmoore1/Bella/blob/master/notebooks/tdparse\_parser.ipynb}.} from \citet{vo2015target} method. The dependency parser they therefore used was the TweeboParser \citep{kong-etal-2014-dependency}\footnote{To the author's knowledge it is believed TweeboParser is the only dependency parser that creates multiple roots for a given text. However the author is not an expert within the field of dependency parsing.} which was created for noisy text such as Tweets and hence why multiple roots can occur in one text. This parser was also used because it was especially created for noisy text and the datasets that \citet{wang-etal-2017-tdparse} applied this method to were Twitter datasets. Thus one expects that this method will work best on social media type of texts as this method has been developed with this bias.
 
@@ -170,6 +175,7 @@ As with \citet{vo2015target}, \citet{wang-etal-2017-tdparse} had three different
 
 Overall the general architecture of \citet{wang-etal-2017-tdparse} is in essence the same as that of \citet{vo2015target}, thus can then be summarised through figure \ref{fig:repro_np_architecture}. 
 
+\FloatBarrier
 \subsection{LSTM}
 \label{section:repro_lstm_description}
 
@@ -216,9 +222,11 @@ Finally the TCLSTM method which can be seen in figure \ref{fig:repro_tclstm_meth
 %\subsection{Review of the three methods}
 %The reason these three methods were chosen is two fold; first they can be split by the classifier the method uses, either a linear SVM or non linear NN, of which even though they have been compared before \cite{tang-etal-2016-effective, wang-etal-2017-tdparse} they have not been compared on datasets that are not Twitter based. Secondly \citet{vo2015target} and \citet{wang-etal-2017-tdparse} are very similar with the only difference being the whole and dependency contexts therefore it would be interesting to see if the dependency context is of importance generally across datasets that are not Twitter based.
 
+\FloatBarrier
 \section{Experimental Setup}
 \label{section:repro_experimental_setup}
 \subsection{Datasets}
+\label{section:repro_experimental_setup_datasets_new}
 Within the reproduction and mass evaluation experiments the following datasets will be used: 
 
 \begin{enumerate}
@@ -255,6 +263,7 @@ The Dong dataset\footnote{This dataset can be downloaded from \url{http://goo.gl
 \end{example}
 
 
+\FloatBarrier
 \subsection{Significance Testing and Evaluation Metrics}
 As stated earlier, to test if the method has been successfully reproduced the results from the reproduced method will not be statistically significantly different to the original method's results. To choose an appropriate statistical test, the guide from \citet{dror-etal-2018-hitchhikers} has been followed, from which the non-parametric paired bootstrap test \citep{efron_1993} has been selected. This was chosen as the distribution of results cannot always be assumed to come from a normal distribution, due to the macro F1 metric \citep{dror-etal-2018-hitchhikers} which is one of the metrics used within the experiments. Thus this breaks the assumptions of the more powerful parametric tests (student's t-test). Furthermore, out of the two families of non-parametric tests the sampling-based tests are more powerful \citep{dror-etal-2018-hitchhikers, sogaard-etal-2014-whats} (fewer type 2 errors\footnote{Type 2 error: `refers to the case where the null hypothesis is not rejected although it should be.'\citep{dror-etal-2018-hitchhikers}}), from this either Pitman's permutation test or the paired bootstrap can be used, thus we follow \citet{sogaard-etal-2014-whats} in using the paired bootstrap test. The one assumption that has to be made with the paired bootstrap is that the test data is representative of the overall population by having a large enough test set size. Therefore we take the suggestion from \citet{sogaard-etal-2014-whats} and assume that a test set of size greater than 200 is enough to ensure the type 1 errors\footnote{Type 1 error: `refers to the case where the null hypothesis is rejected when it is actually true.'\citep{dror-etal-2018-hitchhikers}} are minimised. The only experiments that cannot assume the test size is greater than 200 are those that apply five-fold cross validation on the YouTuBean dataset.
 
@@ -360,17 +369,20 @@ To reject this null hypothesis \ref{hyp:repro_replication_better_null} equation 
 \label{eq:repro_null_diff_better_worse}
 \end{equation}
 
+\FloatBarrier
 \subsection{Pre-Processing and Modelling Frameworks}
 The pre-processing for the two NP approaches will use the Twitter based tokeniser; Twokenizer \citep{gimpel-etal-2011-part} as this was stated within \citet{vo2015target} and is shown to be used within \citet{wang-etal-2017-tdparse} codebase\footnote{\url{https://github.com/bluemonk482/tdparse/blob/master/data/dataprocessing.py}}. For the LSTM approach \citep{tang-etal-2016-effective} the English Spacy tokeniser is used due to its speed and wide use within the NLP field, as well as \citet{tang-etal-2016-effective} not stating the tokeniser used. All text is lower cased after being tokenised.
 
 For the NP methods, scikit-learn's \citep{pedregosa2011scikit} LinearSVC is used as it is a wrapper of LibLinear \citep{fan2008liblinear} which is the library that both NP papers used for their SVMs. For \citet{tang-etal-2016-effective} LSTM based methods the AllenNLP framework \citep{gardner-etal-2018-allennlp} is used which uses PyTorch \citep{NEURIPS2019_9015}. 
 
+\FloatBarrier
 \section{TDSA Reproduction Studies}
 \label{section:repro_replication}
 
 These studies will explore how the results from the original methods differ with those reproduced. Each paper will have its own subsection detailing the differences and if the differences are statistically significant. Furthermore, at the end of the section based on the results, suggestions are offered to make papers more reproducible. Lastly based on the reproduction results of \citet{tang-etal-2016-effective} additional suggestions are made for NN based methods to improve reporting of results, which in itself helps with both evaluation and reproducibility. A paper is defined as being reproduced if the main result is not statistically significantly different on at least one metric and if the results have the same rank order e.g. model A is better than model B for at least one metric. In the thesis, this is how the definition for reproducibility from the introduction \ref{section:repro_intro} has been empirically interpreted. 
 %Before conducting the reproducibility studies, the experimental setup for all of these studies will be stated defining the metrics, datasets, pre-processing steps, and how the statistical significance tests will be performed.
 
+\FloatBarrier
 \subsection{Neural Pooling}
 \label{section:repro_neural_pooling}
 To state if the paper \citep{vo2015target} has been reproduced the last experiment in the paper (table 5 \citep{vo2015target}) is performed which evaluates the methods on the test set of \citet{dong-etal-2014-adaptive} Twitter dataset. To be comparable the same SVM C-value parameters are used for all methods and sentiment lexicons for the Target-Dependent Plus method. Also the same word vectors are used which are the concatenation of the unified Sentiment Specific Word Embeddings (SSWE) \citep{tang-etal-2014-learning} and their own Twitter specific continuous skip-gram \citep{mikolov2013efficient} word vectors (w2v) creating SSWE + w2v. Finally MinMax scaling, as shown in equation \ref{eq:repro_min_max_scaling}, is used on all features, whereby this enforces a feature to be in a pre-defined \textit{max} to \textit{min} range for all samples ($X \in \R^{n \times d}$ where $n$ is the number of samples and $d$ is the number of features). This therefore enforces all features to be within the same range and ``avoid attributes (features) in greater numeric ranges dominating those in smaller numeric ranges'' \citep{hsu2003practical}. $X_{min} \in \R^d$ and $X_{max} \in \R^d$ are the smallest and largest value respectively for each feature. Within this thesis the \textit{min} and \textit{max} will be $0$ and $1$ respectively as this is one of the recommended ranges by \citet{hsu2003practical}. Only after the experiments have been conducted within this thesis, after looking through \citet{wang-etal-2017-tdparse} codebase, was it found they used $-1$ and $1$ for \textit{min} and \textit{max}. Thus it will be shown the difference between using these two different \textit{min} and \textit{max} ranges is negligible.
@@ -454,6 +466,7 @@ The last study explores the significance of scaling the features since \citet{vo
     \label{fig:repro_vo_Target_Non_Scaled_Reproduction_Dong}
 \end{figure}
 
+\FloatBarrier
 \subsection{Neural Pooling with Dependency Parsing}
 
 To test if \citet{wang-etal-2017-tdparse} methods are reproducible, table 2 and 3 from their paper will be reproduced. These tables test their methods across two Twitter datasets, \citet{dong-etal-2014-adaptive} and their own Election Twitter dataset. To be comparable the SVM C-value is tuned using five-fold cross validation on the training data, as unlike \citet{vo2015target}, \citet{wang-etal-2017-tdparse} does not report what C-value they found to be optimal\footnote{The range of C-values \citet{wang-etal-2017-tdparse} used for tuning was not reported within the paper. However later on after the experiments within the thesis the C-value range used by \citet{wang-etal-2017-tdparse} was found through a function in their codebase: \url{https://github.com/bluemonk482/tdparse/blob/master/src/liblinear.py\#L91}.}. The range of C-values used within the tuning process is described within equation \ref{eq:repro_wang_c_values}, which is based on the exponential range suggested by \citet{hsu2003practical} with the addition of the default C-value ($1$) for linear SVMs in Scikit-learn \citep{pedregosa2011scikit}. The best found C-value for the accuracy metric, for each method, on each of the datasets can be seen in table \ref{table:repro_rep_wang_c}, these C-values will be used throughout unless otherwise stated. Additionally, the same sentiment lexicons are used, but as stated earlier when using MinMax scaling the features are scaled between $0$ and $1$ rather than $-1$ and $1$. Also the same word vectors are used, which are the SSWE + w2v. As shown in figures \ref{fig:repro_wang_TDParse_Dong} and \ref{fig:repro_wang_TDParse_Election} the methods have been reproduced on both datasets.
@@ -556,6 +569,7 @@ As scaling is not mentioned in the paper and only stated within the run command 
     \label{fig:repro_wang_TDParse_Election_no_scale}
 \end{figure}
 
+\FloatBarrier
 \subsection{Large Scale Analysis of the Affect of the C-value and Scaling on Neural Pooling Methods}
 
 These two sets of experiments will explore the importance of the C-value within the SVM that is used in the NP methods and scaling. As it has been shown that the C-value is statistically significantly important to recreate the macro F1 score within the Election dataset experiments for \citet{wang-etal-2017-tdparse} and for all NP methods scaling is statistically significant. These sets of experiments will explore how significant these two parameters are within the NP methods, whereby all of the NP methods from \citet{vo2015target} and \citet{wang-etal-2017-tdparse} will be used to make the findings more robust. Furthermore to make the findings generalisable the methods will be applied to all six datasets from table \ref{table:repro_dataset_stats}. The experiments will use five-fold cross validation on the training sets to ensure the test set is not used, and thus allow researche's to use these findings without overfitting to the test sets. In all experiments the mean best performing configuration of the method for either the accuracy or macro F1 metric will be compared against all other configurations using a one sided significant test. The number of folds that the mean best configuration is significantly better than the other configurations will be corrected using Bonferroni. 
@@ -603,6 +617,7 @@ MinMax scaling with the scale range of $0$ to $1$, rather than \citet{wang-etal-
 
 % Furthermore \citet{reimers-gurevych-2017-reporting} found that the same NN based sequence labelling method can produce statistically significantly different results based on the random seed the method was initialised with.
 
+\FloatBarrier
 \subsection{LSTM}
 \label{section:repro_lstm}
 
@@ -671,11 +686,13 @@ As the methods from \citet{tang-etal-2016-effective} have been reproduced, anoth
     \label{table:repro_tang_test_embedding_scores}
 \end{table}
 
+\FloatBarrier
 \subsection{Conclusion from Reproduction Studies}
 It is clear from the large scale NP experiments shown in figures \ref{fig:repro_parameters_c_values_accuracy} (\ref{fig:repro_parameters_c_values_macro_f1}) and \ref{fig:repro_parameters_scaling_accuracy} (\ref{fig:repro_parameters_scaling_macro_f1}) for the accuracy (macro F1) metric, that both the scaling method (if used) and the C-value from the SVM should be stated within the paper. Furthermore, the suggestion from \citet{reimers-gurevych-2017-reporting} on reporting multiple runs of the method over different random seed values is required for NN based TDSA methods as the single performance scores can be misleading, which could explain why previous papers obtained different results to the original for the TDLSTM method \citep{chen-etal-2017-recurrent, tay2018learning}. For the first time, it has been shown in this section that scaling method, C-value of the SVM, and random seeds make a significant difference for TDSA methods. 
 
 Additionally, within this section it has also been shown that general word embeddings (300 dimension GloVe embeddings) can perform as well as the type and/or task specific embeddings. This has been shown for the NP methods \citep{vo2015target}, where as for the LSTM methods \citep{tang-etal-2016-effective} they tend to prefer the general GloVe embeddings. From this it shows that smaller type and/or task specific embeddings can be as useful as larger general embeddings for at least the NP methods. This implies that from an energy efficiency perspective\footnote{Measured by number of parameters. A better measure for efficiency would be Floating Point Operations (FPO) \citep{schwartz2019green}, but \citet{schwartz2019green} did state that the number of parameters is a form of efficiency measure.} it would be of use to train these smaller type and/or task specific embeddings as the methods that use them will be more efficient than if they use the larger general embeddings. Alternatively it suggests that it is not a requirement to create smaller type and/or task specific embeddings. These findings are at least true for TDSA methods applied to the Dong dataset.
 
+\FloatBarrier
 \section[Mass Evaluation]{Mass Evaluation\footnote{Within this section the TDParse Plus and Target Dependent Plus methods will also be called TDParse+ and TD+ respectively.}}
 \label{section:repro_mass_eval}
 % Need to mention here the difference in the datasets in more detail e.g. dataset size etc macro F1 results etc etc
@@ -792,6 +809,7 @@ In the low resource setting for NP methods, it is still clear that the addition 
     \label{table:repro_small_mass_eval_neg_f1}
 \end{table}
 
+\FloatBarrier
 \section{Conclusion}
 Within this chapter, the reproduction studies have found, for the first time, that for NP methods within TDSA both scaling features and C-values within SVMs are statistically significant factors. Furthermore it is recommended that these factors are reported within a structured format like that suggested by \citet{dodge-etal-2019-show} within Appendix B-D with all other relevant information about the method. For TDSA LSTM based methods it has been shown for at least one metric (macro F1) that they can be statistically significantly affected by random seeds for the first time, this has been shown previously by \citet{reimers-gurevych-2017-reporting} for neural sequence labelling methods. Thus it is recommended to follow \citet{reimers-gurevych-2017-reporting} advice on reporting and comparing distribution of scores that are generated from the LSTM methods by different random seeds. 
 

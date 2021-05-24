@@ -15,10 +15,12 @@ These formalised error splits and novel metrics will allow future researchers to
     \label{tab:aug_previous_work_results}
 \end{table}
 
+\FloatBarrier
 \section{Error Analysis Background}
 \label{section:aug_error_analysis}
 As stated in the introduction of this chapter, TDSA error analysis has been lacking in both the reporting and the error splits available to analyse the methods. Therefore in this section the thesis will review the current error analysis splits available, as well as creating new error splits, and lastly stating some hypotheses around what these splits actually mean and therefore why they are useful (see table \ref{table:aug_error_split_summary} for a full summary). The hypothesis and use around the splits will then be tested in the baseline experiments subsection \ref{section:aug_baseline}.
 
+\FloatBarrier
 \subsection{Previous Work}
 \label{section:aug_error_analysis_previous_work}
 
@@ -29,6 +31,7 @@ The \textit{ST}, \textit{DS}, and \textit{NT} splits are the first group of the 
 % Created two different groups of error splits local and global.
 As suggested earlier, the main difference between these two split groups is that the first uses local information whereas the latter uses the global information between the test and training datasets. In the next subsection, the new data splits will be created to complement these existing splits. Given that the first split group contains three slightly different splits, in this thesis only the \textit{DS} and \textit{NT} splits will be used. These two were chosen as they complement each other well as the \textit{NT} split measures the effectiveness of a method with respect to the number of targets in a text and therefore their interactions. The \textit{DS} split measures a method's ability to identify target sentiment relations. Thus if a method performs well on the \textit{NT} subsets but not the \textit{DS} it suggests that it can understand when targets should interact with each other such as in the conjunction case e.g. `The \textit{battery} is really good and so is the \textit{screen}'\footnote{`battery' and `screen' are the two targets.}, but it is not good at identifying target sentiment relationships. Thus the \textit{ST} split is not required as it measures to some extent both \textit{DS} and \textit{NT}.
 
+\FloatBarrier
 \subsection{New splits}
 \label{section:error_analysis_new_splits}
 
@@ -51,6 +54,35 @@ Targets that are within the $1$ subset have to be either the only target within 
 
 The \textit{TSSR} split can be seen to be very similar to the \textit{DS} split as they both measure to some degree the number of sentiments within a sentence. However the main point of \textit{TSSR} unlike \textit{DS} is to measure overfitting to the most frequent sentiment within the sentence, where as \textit{DS} better evaluates the target sentiment relationship as the subset explicitly measure this. The \textit{TSSR} and \textit{DS} splits can be used together to measure the target sentiment relation better, as when the \textit{TSSR} shows overfitting this informs how reliable the metrics within the \textit{DS} subsets are. For example, when overfitting through \textit{TSSR} is high, the values of the \textit{DS} split may be unreliable as the model is not learning the target sentiment relationship, but just how well it is at overfitting.
 
+Summaries of the differences in the error splits introduced in this section and section \ref{section:aug_error_analysis_previous_work} can be seen in table \ref{table:aug_error_split_summary}. Examples for each of these splits and subsets can be found in table \ref{table:aug_error_split_examples}.
+
+\afterpage{%
+    %\clearpage% Flush earlier floats (otherwise order might not be correct)
+    %\clearpage% Flush page
+    \thispagestyle{document}
+    \begin{landscape}% Landscape page
+            \centering
+            \input{tables/augmentation/error_analysis/split_table.tex}
+    \end{landscape}
+    \begin{table}[!ht]
+        \centering
+        \input{tables/augmentation/error_analysis/examples.tex}
+        \caption{Examples of TDSA samples split into training and test datasets, where each example states the error split that the target will be put within. All examples have come from the Election Twitter dataset \citep{wang-etal-2017-tdparse}.}
+        \label{table:aug_error_split_examples}
+    \end{table}
+    \clearpage
+}
+
+\newpage
+
+
+
+
+
+
+
+
+\FloatBarrier
 \subsection[Analysing the splits]{Analysing the splits\footnote{All empirical tables and graphs within this section have been generated through the following notebook \url{https://github.com/apmoore1/tdsa_comparisons/blob/master/analysis/TDSA_Error_Analysis.ipynb}.}}
 \label{section:aug_analysing_the_splits}
 Given these five different splits \textit{DS}, \textit{NT}, \textit{TSSR}, \textit{n-shot}, and \textit{TSR}, the analyses of how often they occur within the three main English datasets that are being examined in this chapter will be explored, through this exploration it will uncover in more detail how these datasets differ. All analysis shown in this subsection is performed on the test set of the datasets, this was chosen over a validation set as no standard/formal validation sets have been created for these datasets\footnote{It has also been shown that using a standard training and test split is not optimal if the aim is to find generalisable results \citep{gorman-bedrick-2019-need,moss-etal-2019-fiesta}. Thus, showing analysis for a validation split is somewhat pointless as the best way of evaluation in the future would be to run models across multiple splits and random seeds \citep{moss-etal-2019-fiesta} when computational costs lower. For now, our evaluations only take into account random seeds subsection (\ref{section:aug_experimental_setup}).}.
@@ -231,25 +263,9 @@ This analysis suggests that the \textit{n-shot} split should be broken up into f
     \end{floatrow}
 \end{figure}
 
+\FloatBarrier
 \subsection{Conclusion so far}
 Within this subsection the different error splits that exist within the TDSA literature have been reviewed and added too. Furthermore, each of these splits have been analysed on three major datasets showing for the first time how each dataset has different characteristics. The local splits \textit{DS}, \textit{NT}, and \textit{TSSR} show that the Election dataset contains far more unique sentiments per text, whereas the Restaurant dataset contains the most targets per text. The global splits, \textit{n-shot} and \textit{TRS}, find that in the low resource setting a method that can generalise well to new targets and new sentiment relations would be important, which can be seen through the contrast in subset sizes between Election and Laptop datasets. Lastly, table \ref{table:aug_error_split_summary} summarises the differences in the error splits, examples for each of these splits and subsets can be found in table \ref{table:aug_error_split_examples}. Finally, a summary of all of the statistical breakdowns of each of these splits can be found in table \ref{table:aug_error_analysis_summary_stats}.
-
-\afterpage{%
-    %\clearpage% Flush earlier floats (otherwise order might not be correct)
-    \thispagestyle{document}
-    \begin{landscape}% Landscape page
-            \centering
-            \input{tables/augmentation/error_analysis/split_table.tex}
-    \end{landscape}
-    \clearpage% Flush page
-}
-
-\begin{table}[!ht]
-    \centering
-    \input{tables/augmentation/error_analysis/examples.tex}
-    \caption{Examples of TDSA samples split into training and test datasets, where each example states the error split that the target will be put within. All examples have come from the Election Twitter dataset \citep{wang-etal-2017-tdparse}.}
-    \label{table:aug_error_split_examples}
-\end{table}
 
 \begin{table}[!ht]
     \centering
@@ -258,6 +274,7 @@ Within this subsection the different error splits that exist within the TDSA lit
     \label{table:aug_error_analysis_summary_stats}
 \end{table}
 
+\FloatBarrier
 \section{Method Performance on the Error Splits}
 \subsection{Introduction}
 \label{section:aug_method_performance_intro}
@@ -281,6 +298,7 @@ Due to having a non-target method \textit{CNN}, all of the TDSA methods have a b
     %\item Evaluate the error split across three different model enhancements position encoding (section \ref{section:aug_position_encoding}), inter target encoding (section \ref{section:aug_inter_target_encoding}), and CWR (section \ref{section:aug_cwr}).
 \end{enumerate}
 
+\FloatBarrier
 \subsection[Experimental Setup]{Experimental Setup\footnote{The code to generate table \ref{table:aug_methods_performance_split_breakdown} can be found in the README at the following \url{https://github.com/apmoore1/tdsa_comparisons\#analysis-of-the-datasets}. The code to generate tables \ref{table:aug_methods_performance_global_error_diff} and \ref{table:aug_methods_performance_local_error_diff} can be found in the following notebook \url{https://github.com/apmoore1/tdsa_comparisons/blob/master/analysis/TDSA_Error_Analysis.ipynb}.}}
 \label{section:aug_experimental_setup}
 As stated in the introductory section of this chapter (\ref{section:aug_introduction}), the three datasets that are used throughout this chapter are the Election, Laptop and Restaurant datasets. However, unlike the error analysis section (\ref{section:aug_error_analysis}), the standard training split for each of the datasets will be further randomly split into a new training and an additional validation split, of which the size of these splits can be seen in table \ref{table:aug_methods_performance_split_breakdown}. The validation set is required so that the early stopping can be used for all of the NN methods. Furthermore, the validation set would usually be used for more hyper-parameter tuning, e.g. finding the best learning rate etc, but due to compute time this is not the case. Instead we selected the most common hyper-parameters from the literature as detailed in table \ref{table:aug_methods_performance_default_hyperparameters}, it will be stated explicitly within this chapter if these hyperparameters are not used. One default hyperparameter of note is the embedding, of which the 840 billion token 300 dimensional GloVe vector \citep{pennington-etal-2014-glove} (from now on called GloVe and is called that in table \ref{table:aug_methods_performance_default_hyperparameters})\footnote{This is the same 300 dimension GloVe embedding that is used in chapter \ref{chapter:reproducibility}.} was chosen, as it is the most common default embedding in the TDSA literature. All text will be tokenised using Spacy and then lower-cased. Lastly, all results reported in this section will be results on the test set and all validation results will be reported in the appendix for reproducibility reasons \citep{dodge-etal-2019-show}. However if there is a large difference between the validation and test results this will be mentioned explicitly in this section.
@@ -298,6 +316,7 @@ Furthermore, for all of the experiments performed in this chapter each model wil
 
 %Before going into the details of comparing two models across multiple variables, we first need to define what the differences are between a method and a model. A method is the general NN architecture where as the model is the concrete configuration of that method. Thus two models can be different but use the same method, for example the difference would be the word vectors that the two models use. When comparing two model across multiple variables and therefore significance tests a correct procedure is required, as explained in section \ref{section:repro_neural_pooling}. In this chapter, Bonferroni correction procedure will be used where appropriate as in none of our cases can independence be assumed.   %When comparing two models the value of $\alpha$ in $p \leq \alpha$ is used to define the number of type 1 errors in the statistical test. However when comparing two models across multiple variables and therefore multiple significance tests if the number of times a test is defined as significant are simply counted the number of type 1 errors in the tests will increase \citep{dror-etal-2017-replicability}. Thus simply counting the number of times a test is significant cannot be used without further introducing type 1 errors. To bound these type 1 errors across multiple tests requires a correction mechanism of which \citet{dror-etal-2017-replicability} recommends Bonferroni (Fisher) when the variables are dependent (independent), where Fisher is the more powerful version. In this chapter, Bonferroni will be used where appropriate as in none of our cases can independence be assumed.
 
+\FloatBarrier
 \subsection[Baseline Results]{Baseline Results\footnote{All tables and graphs within this section have been generated through the following notebook \url{https://github.com/apmoore1/tdsa_comparisons/blob/master/analysis/TDSA_Baseline_Results.ipynb}. The exception to this are the tables generated within appendix \ref{section:appendix_cnn_tdsa_baseline}, of which there is a pointer in that appendix to the relevant notebook.}}
 \label{section:aug_baseline}
 \subsubsection{Introduction}
@@ -305,6 +324,7 @@ The baseline results use the four different methods stated in section \ref{secti
 
 For clarification, the sentence/text level \textit{CNN} method is trained differently to the TDSA methods due to the fact that it does not model the target within the sentence. Thus instead of training the \textit{CNN} method with potentially the same sentence multiple times with potentially multiple different sentiments as is the case with TDSA datasets\footnote{This was how the non-target aware models from chapter \ref{chapter:reproducibility} were trained. Therefore the non-target aware models in some training samples would have been given the same sentence with different sentiments to train on. Even though it may have been better to train them in the ways stated within this section, this was not tested due to compute time. Furthermore it was assumed that they were trained in the same way as their target aware methods as it was not stated in the papers \citep{vo2015target, tang-etal-2016-effective, wang-etal-2017-tdparse} that were reproduced that they were trained any differently.}, the TDSA dataset is converted to a text level dataset. To convert from TDSA to a text dataset each text/sentence can only contain one sentiment, from this two options are plausible; 1. only uses texts that contain one unique sentiment ($DS_1$ dataset), or 2. use the majority sentiment from the text. These two options were compared of which the detailed results can be found in appendix \ref{section:appendix_cnn_tdsa_baseline}, of which it was found that the second/later option performed best on 2 of the 3 datasets and all datasets for the accuracy and macro f1 metrics respectively across both validation and test splits. This experiment of comparing the two options of training a text classifier on TDSA data was required as prior works that have shown results for text classifiers never explain how they were trained \citep{tang-etal-2016-aspect,wang-etal-2016-attention,he-etal-2018-exploiting,jiang-etal-2019-challenge}. For a stronger text classifier baseline one could consider pre-training the text classifier from large sources of annotated data such as Yelp reviews \citep{tang-etal-2015-learning}, Amazon reviews \citep{mcauley2015image,he2016ups}, or Tweets using distant supervision \citep{go2009twitter} for the Restaurant, Laptop, and Election datasets respectively and then fine tune them on the respective TDSA dataset. However this stronger baseline is not considered in this work as we are not looking at transfer learning from other sources of sentiment, but this has been shown to be beneficial for TDSA methods \citep{he-etal-2018-exploiting}.  
 
+\FloatBarrier
 \subsubsection{Overall Results}
 Figure \ref{fig:aug_baseline_overall_scores} shows the results of the baseline models across both the validation and test splits with the associated tables \ref{table:aug_methods_baseline_tdsa_metrics_validation} and \ref{table:aug_methods_baseline_tdsa_metrics_test} in appendix \ref{appendix_augmentation_tables}. From these results it can be seen that the \textit{CNN} text classification baseline is indeed a strong baseline for the Laptop and Restaurant datasets that the TDSA methods find difficult to beat. 
 
@@ -315,6 +335,7 @@ Figure \ref{fig:aug_baseline_overall_scores} shows the results of the baseline m
     \label{fig:aug_baseline_overall_scores}
 \end{figure}
 
+\FloatBarrier
 \subsubsection{Comparison of the Original Model Scores to the Reproduced Models}
 Figure \ref{fig:aug_baseline_replication_scores} compares the single run performance of the original TDSA models scores from their associated papers to the distribution of eight accuracy scores from our reproduced TDSA methods\footnote{Accuracy metric was the only metric reported in all of the original TDSA method papers and none of them reported on the Election dataset.}. As can be seen from figure \ref{fig:aug_baseline_replication_scores} the models original score are within the distribution of scores from the reproduced models apart from \textit{IAN} where the original models performance is a lot higher especially for the Laptop dataset. \textit{IAN's} performance difference is most likely due to the fact that the reproduced version uses a different optimiser, ADAM \citep{kingma2014adam}, instead of SGD with momentum \citep{qian1999momentum}, this design choice was made so that all models used the same optimiser. Even though it would be good to optimise the performance of the \textit{IAN} model so that it produces scores similar to the original doing so in a fair manner would mean hyperparameter tuning the other models as well \citep{dodge-etal-2019-show}, which would start becoming computationally expensive. Thus in this thesis it is accepted that the \textit{IAN} model has not been reproduced to the same performance as the original paper reports.
 
@@ -325,6 +346,7 @@ Figure \ref{fig:aug_baseline_replication_scores} compares the single run perform
     \label{fig:aug_baseline_replication_scores}
 \end{figure}
 
+\FloatBarrier
 \subsubsection{Overall Results Comparison between TDSA and Text Classification Models}
 This thesis shows for the first time that not all TDSA models are statistically significantly better than a text classifier as shown by table \ref{tab:augmentation_baseline_tdsa_text_classifier_p_values}, even though all three original TDSA papers state that their TDSA models are superior to a text classifier. Furthermore, at the $95\%$ confidence level none of the TDSA methods are significant on the Laptop test split no matter what the metric is. This shows that potentially hyperparameter tuning is very important to get the most out of the TDSA models. More likely the reason for the text classifier's strong performance on the Laptop and Restaurant dataset compared to the Election dataset is that these datasets contain a large quantity of $DS_1$ samples (see figure \ref{fig:aug_error_analysis_ds}), of which it is shown later in this section in figure \ref{fig:aug_baseline_test_error_subset} that the text classifier does at least as good if not better than the TDSA models on the $DS_1$ subset in the Laptop and Restaurant datasets. This further shows that the overall metrics tell us very little in what the difference is between a text classifier model and the TDSA models.  
 %\citet{jiang-etal-2019-challenge} concluded as well for the Restaurant dataset\footnote{\citet{jiang-etal-2019-challenge} did not perform any significance tests between existing TDSA methods and the text classifier baselines.} that the text classifier good performance was due to the large quantity of text. Furthermore as shown 
@@ -338,6 +360,7 @@ This thesis shows for the first time that not all TDSA models are statistically 
     \label{tab:augmentation_baseline_tdsa_text_classifier_p_values}
 \end{table}
 
+\FloatBarrier
 \subsubsection{Error Split Results}
 \label{section:augmentation_cwr_error_split_results_sub}
 
@@ -369,6 +392,7 @@ From the test and validation results in figures \ref{fig:aug_baseline_test_error
     \label{fig:aug_baseline_test_error_diff_subset}
 \end{figure}
 
+\FloatBarrier
 \subsubsection{Error Split Results Comparison between TDSA and Text Classification Models}
 
 Using the test and validation results from the subsets shown in figures \ref{fig:aug_baseline_test_error_subset} and \ref{fig:aug_baseline_validation_error_subset} respectively it is possible to explore the differences between the text classification model and the TDSA models. These differences can be better seen through the heatmaps in figures \ref{fig:aug_baseline_dataset_error_subset_heatmap} and \ref{fig:aug_baseline_combined_dataset_error_subset_heatmap}, where the former is not corrected for multiple significance tests where as the later is using Bonferroni and is aggregated across datasets. Note that for figure \ref{fig:aug_baseline_dataset_error_subset_heatmap} the $DS_3$ subset results should be ignored for the Laptop and Restaurant datasets as they were never calculated as the sample size for the $DS_3$ subset is too small. Also the $DS_3$ subset is removed from figure \ref{fig:aug_baseline_combined_dataset_error_subset_heatmap} as only the Election dataset contains enough samples to create confidence scores. From all of these figures it is clear to see that the subsets that the TDSA models outperform the text classification model in are $DS_2$, $DS_3$, \textit{low-TSSR}, \textit{TSR KSKT}, \textit{n-shot Med}, and \textit{NT Low}. There are other subsets where the difference is significant as shown in the heatmaps but the majority of these significant differences only occur because of the Election dataset as can be seen if you compare figures \ref{fig:aug_baseline_dataset_error_subset_heatmap} and \ref{fig:aug_baseline_combined_dataset_error_subset_heatmap}. Furthermore, the outliers in these differences are the \textit{n-shot Med}, and \textit{NT Low} subsets of which the reason why it is believed these are outliers was described in the previous paragraphs. The $DS_2$, $DS_3$, and the \textit{low-TSSR} are expected to perform better for the TDSA models as they contain multiple unique sentiments within a sentence, for which a text classification model can only predict one of those sentiments for the sentence thus, limiting the model's capability to perform well on these subsets. This therefore shows that the TDSA models must be learning some target sentiment relationship modelling or else they would not be more competitive than the text classifier. The \textit{TSR KSKT} shows that when the TDSA models have seen a target enough times in a known sentiment context then they can perform a lot better than the text classification model and their respective overall accuracy. However it is the other subsets within \textit{TSR} that are of more interest showing the deficiencies of the TDSA models. The worse subset within \textit{TSR} is the \textit{USKT} of which this is the only subset where the text classification model in general perform significantly better (see figure \ref{fig:aug_baseline_combined_dataset_error_subset_heatmap}). TDSA models are most likely biasing the target representation towards a subset of sentiment classes for those targets and hence why the text classification models perform better on those targets. The \textit{UT} (\textit{n-shot zero} is the same subset) subset is an interesting result as it is dataset dependent as shown best in \ref{fig:aug_baseline_dataset_error_subset_heatmap}, in the Election dataset the TDSA models are better but in all other datasets the text classification model is better. This could be due to the size of the datasets as the Election dataset is much larger than the rest and therefore could allow the TDSA models to create better general target representations, thus allowing the models to leverage similarities with known targets. From the dataset heatmap figure \ref{fig:aug_baseline_dataset_error_subset_heatmap} it can be easily seen that on the Election dataset almost all subset are statistically significant compared to the Laptop and Restaurant dataset. This is most likely due to the Election dataset containing more targets per text (as can be seen in table \ref{table:augmentation_combined_dataset_statistics} \footnote{Dataset statistics for the splits, rather than the whole dataset, used in this section can be seen in table \ref{table:augmentation_splits_dataset_statistics}.}) and therefore far fewer texts within $DS_1$ which is the subset the text classification model is most suited to. Even though the text classifier does not perform  statistically significantly better than all the TDSA models on the Laptop and Restaurant datasets for $DS_1$ they are never worse. Furthermore, as the Laptop and Restaurant datasets are mainly made up of $DS_1$ samples (see figure \ref{fig:aug_error_analysis_ds}) this is most likely the reason why the TDSA models are not statistically significantly better than the text classification models on these datasets.
@@ -400,6 +424,7 @@ Using the test and validation results from the subsets shown in figures \ref{fig
     \clearpage% Flush page
 }
 
+\FloatBarrier
 \subsubsection{Comparing the Error Split Results to the Prior Work}
 \label{section:augmentation_cwr_comparing_to_prior_work_new}
 % How does all of this relate back to the previous work this needs to be moved up to above the NT stuff.
@@ -463,6 +488,7 @@ To further investigate whether the most frequent sentiment class always has this
     \label{fig:aug_baseline_sentiment_f1_ds_laptop}
 \end{figure}
 
+\FloatBarrier
 \subsection{The Strict Text ACcuracy (STAC) Metric}
 \label{section:augmentation_cwr_STAC_new}
 
@@ -502,7 +528,7 @@ The \textit{STAC Multi} gives in one metric how well overall a TDSA model is at 
     \label{tab:aug_STAC_samples_stats}
 \end{table}
 
-
+\FloatBarrier
 \section{Reflection on Error Splits, STAC, and the Results}
 Through these error splits and new metrics (\textit{STAC}) the differences between the TDSA and text classifier can be seen and where the TDSA models do outperform the text classifiers by a large margin. The flip side to distinguishing the performance of TDSA and text classifier models is by creating `challenge datasets' that examine the performance of a model in specific circumstances. This approach was taken by \citet{jiang-etal-2019-challenge} where they created a new version of the Restaurant dataset called Multi-Aspect Multi-Sentiment (MAMS). The MAMS dataset as the name suggests only contain texts that have at least two targets with at least two different sentiments, thus removing all texts that only have one sentiment. This new dataset was created to avoid samples being easily classified by a text level classifier. This dataset therefore fits into the $DS_2$ and $DS_3$ only subsets from the \textit{DS} split. They found a large difference in scores between the text classifier models and the TDSA ($\geq 10\%$), which is what was found in the error split analysis in section \ref{section:augmentation_cwr_error_split_results_sub} on all datasets as shown in figures \ref{fig:aug_baseline_test_error_subset} and \ref{fig:aug_baseline_test_error_diff_subset}. However, to overcome this problem they have had to create a new dataset which costs in either money and/or time, which is not the case in the error split approach shown here. The approach of creating new datasets to examine properties of TDSA models is not scalable without large resources thus the error split approach is a very feasible alternative and as shown effective. Furthermore, using the new \textit{STAC-Multi} metric it is now possible to quantify TDSA model performances on samples that only TDSA models can correctly predict. This does not mean that these challenge datasets are not useful, for instance using this dataset can help answer the question of whether using more $DS_2$ and $DS_3$ samples will improve TDSA models performance on those subsets and how much would that affect the performance on the $DS_1$ subset.
 
@@ -512,6 +538,7 @@ Subsection \ref{section:augmentation_cwr_comparing_to_prior_work_new} has relate
 
 Lastly, from exploring the results across these different splits future research directions have surfaced. Due to none of the splits being capable of explicitly measuring target interaction, an annotated corpus incorporating this annotation would be of use. \citet{he-etal-2018-effective} has shown that using an un-supervised autoencoder objective to mimic encoding a latent aspect into the target representations improves general results as well as results on multi word targets, and visually has shown on selected targets to create better target representations. However it would be of interest to see if such a method can help target representations for unknown targets (\textit{UT}) as this would be similar to the Multi-Entity Aspect Based Sentiment Analysis (ME-ABSA) task, where \citet{yang2018multi} had found no difference between \textit{UT} and Known Sentiment Known Targets (\textit{KSKT}). Thus suggesting that encoding the latent aspect could greatly benefit the \textit{UT} samples.
 
+\FloatBarrier
 \section{Conclusion}
 The research question that this chapter was attempting to answer is \rqref{rq:measured} `What is an appropriate empirical evaluation methodology for TDSA?'. To investigate this, section \ref{section:aug_error_analysis} reviewed the prior work in error analysis splits within TDSA. From this literature review, several existing error splits were found, \textit{DS} which measured target sentiment relationship modelling, \textit{NT} measuring target interaction, and \textit{n-shot} measuring generalisation to unknown targets. From this literature review, two novel error splits were created, \textit{TSSR} that measured target sentiment overfitting to the most frequent sentiment in a sentence and \textit{TSR} measuring generalisation to unknown sentiment relationships and targets. These existing error splits were rigorously tested in section \ref{section:aug_baseline} across three TDSA methods and a text classification method to ensure they were measuring what was hypothesised. From this, \textit{NT} error split was removed due to it not measuring target interaction but rather the sentiment factors \textit{DS}. \textit{TSSR} was dropped due to it not measuring target sentiment overfitting without a text classification model and the \textit{DS} split. Lastly, the \textit{n-shot} split was removed as when the value of \textit{n} increased it was expected the accuracy should increase as well or at the least not drop, which was not always true. Thus the \textit{TSR} split which measured both unknown targets and sentiment relationships was recommended as a better replacement to \textit{n-shot}. The findings from reviewing the \textit{NT} split bring the recommendation that the only way to investigate target interaction is through an annotated corpus with this explicitly annotated. A novel TDSA metric is created, \textit{STAC Multi} and \textit{STAC 1}, which when used together can be used to evaluate sentiment overfitting to the most frequent sentiment in the sentence. Furthermore, the \textit{STAC Multi} metric can be seen as a coarse grained version of the \textit{DS} error split as they both measure target sentiment relationship modelling, but \textit{STAC Multi} cannot be influenced by sentiment overfitting to the most frequent sentiment in the sentence. 
 
