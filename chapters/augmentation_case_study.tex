@@ -1,3 +1,4 @@
+\FloatBarrier
 \section[Introduction]{Introduction\footnote{All code that creates the evidence for this chapter can be found here: \url{https://github.com/apmoore1/tdsa_comparisons}. Certain sections throughout this chapter may have more specific pointers to python notebooks that created the analyses within that given section.}}
 \label{section_case_intro}
 Following on from chapter \ref{chapter:methodology}, several case studies will be explored using the newly developed TDSA evaluation methodology to test if it can quantify the justification behind these new developments. These justifications are normally qualitative case studies which are hard to quantify and to a large extent impossible to compare. Thus the importance on testing if this new TDSA evaluation methodology can work in practice is highly motivated to overcome the issues with qualitative analysis. Furthermore in each case study a rigorous experimental setup\footnote{This is through statistical testing, comparing across more models and datasets, and in the inter-target encoding setup comparing to a more suitable baseline model.} will be conducted unlike many previous works.
@@ -9,6 +10,7 @@ All of these new developments will be applied to the methods that were used with
 %Furthermore within the TDSA literature there have been many general developments with regards to improvements that are to some extent agnostic to the Neural Network (NN) architecture they are applied to. The general developments of note for this chapter are; encoding the target's position (position encoding) \citep{gu-etal-2018-position}, inter-target encoding where each target is aware of all of targets within the same text \citep{hazarika-etal-2018-modeling}, and transfer learning from Bi-directional Language Models (BiLM) \citep{sun-etal-2019-utilizing,xu-etal-2019-bert} (also known as Contextualised Word Representations (CWR) which is what they will be called from now on). Of these developments, only the first two are TDSA specific where as the transfer learning is a general machine learning concept that has been shown useful in many NLP tasks \citep{peters-etal-2018-deep}. These developments have been mainly justified by the improvements on the overall accuracy and/or macro F1 score, but the justification in the paper is normally more detailed. An example justification (and one that is typical of most developments) of inter-target encoding from \citet{hazarika-etal-2018-modeling}, where they first show improvements on the general accuracy scores over baselines. They then further state these improvements are due to the model being able to infer one target's sentiment from knowing another target's sentiment, and show this through a case study (section 4.2) from a few samples. The reason for inter-target encoding does sound valid and the case studies do help this, however qualitative case studies are hard to quantify from these papers and to a large extent impossible to compare. Furthermore in both position and inter-target encoding there have been papers by \citet{he-etal-2018-exploiting} and \citet{majumder-etal-2018-iarm} that respectively use more detailed quantitative metrics through their own error splits to justify these improvement. However the error splits used in both cases are shown within this chapter to be unsuitable as they both measure other factors that the original authors did not know they were measuring.
 %Furthermore as stated in the introduction section \ref{section:aug_introduction}, the TDSA methods will be enhanced with three different developments; 1. position-encoding, 2. inter-target encoding, and 3. CWR. From the three methods, only \textit{IAN} and \textit{Att-AE} will be enhanced with position-encoding as \textit{TDLSTM} already has the target position somewhat encoded into its NN architecture. Each of these enhancements will be tested against their standard/base model with respect to the error analysis splits. The quantitative results from these error analysis splits will be compared to the original qualitative justifications for these developments from the respective papers.
 % Finally these three baseline TDSA models are then enhanced (when appropriate) with position encoding, inter-target encoding, and CWR to quantify how these different developments enhance the models through the error splits. The results from these splits and metrics for the position and inter-target encoding enhancements will for the first time quantify the theory behind the developments, and in contrast to previous work, we use suitable error analysis splits and a more rigorous experimental setup\footnote{This is through statistical testing, comparing across more models and datasets, and in the inter-target encoding setup comparing to a more suitable baseline model.}. The results from the CWR will be the first detailed quantifiable results that should highlight what the models are not capturing and should help guide future state-of-the-art TDSA models. 
+\FloatBarrier
 \section[Position Encoding]{Position Encoding\footnote{All graphs within this section have been generated through the following notebook \url{https://github.com/apmoore1/tdsa_comparisons/blob/master/analysis/Position_Encoding.ipynb}.}}
 \label{section:aug_position_encoding}
 \subsection{Introduction}
@@ -46,13 +48,14 @@ In general, encoding position information is used to improve the performance on 
 
 Given this prior literature the position encoding that will be used in this section is position weighting. This was chosen as it requires no extra parameters unlike the position embeddings and does not require fundamentally changing the NN architecture. The distance metric proposed by \citet{chen-etal-2017-recurrent} as shown in equation \ref{eq:aug_chen_position} will be used as it does not require any arbitrary cut off or normalising parameter to be tuned \citep{zhao2019modeling, li-etal-2018-transformation}, nor does it mask any words \citep{zhang-etal-2019-aspect}, and finally does not require a dependency parser \citep{he-etal-2018-effective}. Furthermore, as this weighting method does not remove any words it allows the model to ignore the explicit bias of the position weighting in cases where the closest words are not always the most important e.g. in the case that the affecting opinion word(s) are a few syntactic hops away from the target. The position weighting will be applied to the context/sentence vectors after being encoded by the LSTM layer and before the attention is applied in both \textit{IAN} and \textit{Att-AE}.
 
+\FloatBarrier
 \subsection{Experiments}
 
 Figure \ref{fig:aug_overall_position_scores} shows the overall scores of the position encoded \textit{IAN} and \textit{Att-AE} models. These scores are somewhat meaningless without comparing them to their respective non-position encoded baseline models.
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[scale=0.32]{images/augmentation/methods_performance/Position_Encoding/overall_position_scores.png}
+    \includegraphics[scale=0.4]{images/augmentation/methods_performance/Position_Encoding/overall_position_scores.png}
     \caption{Columns represent different datasets, rows different metrics. Each plot represents the two position encoded models metric score on the test and validation splits.}
     \label{fig:aug_overall_position_scores}
 \end{figure}
@@ -63,7 +66,7 @@ Figure \ref{fig:aug_position_baseline_overall_differences} shows the metric scor
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[scale=0.32]{images/augmentation/methods_performance/Position_Encoding/position_baseline_overall_differences.png}
+    \includegraphics[scale=0.4]{images/augmentation/methods_performance/Position_Encoding/position_baseline_overall_differences.png}
     \caption{Columns represent different datasets, rows different metrics. Each plot represents the differences between the position and baseline models for the relevant metric score on the test and validation splits.}
     \label{fig:aug_position_baseline_overall_differences}
 \end{figure}
@@ -74,7 +77,7 @@ As can be seen from the heatmaps, the Laptop and the Restaurant datasets are the
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[scale=0.5]{images/augmentation/methods_performance/Position_Encoding/position_overall_sig_models.png}
+    \includegraphics[scale=0.6]{images/augmentation/methods_performance/Position_Encoding/position_overall_sig_models.png}
     \caption{Heatmaps that represent the number of position models that are statistically significantly better than their baseline equivalents at the 95\% confidence level.}
     \label{fig:aug_position_overall_sig_models}
 \end{figure}
@@ -90,14 +93,14 @@ Furthermore, from the heatmap results we can see that the Election dataset is th
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[scale=0.32]{images/augmentation/methods_performance/Position_Encoding/position_split_difference_test_results.png}
+    \includegraphics[scale=0.4]{images/augmentation/methods_performance/Position_Encoding/position_split_difference_test_results.png}
     \caption{Test split results. Columns represent different datasets, rows different error splits. Each plot represents the differences between the position and baseline models for the Accuracy metric on the given error subset.}
     \label{fig:aug_position_split_difference_test_results}
 \end{figure}
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[scale=0.5]{images/augmentation/methods_performance/Position_Encoding/position_dataset_subset_heatmap.png}
+    \includegraphics[scale=0.6]{images/augmentation/methods_performance/Position_Encoding/position_dataset_subset_heatmap.png}
     \caption{Heatmaps that represent the number of position models that are statistically significantly better than their baseline equivalents at the 95\% confidence level based on the accuracy metric.}
     \label{fig:aug_position_dataset_subset_heatmap}
 \end{figure}
@@ -113,23 +116,25 @@ As was suggested in sub section \ref{section:aug_baseline} the \textit{DS} and \
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[scale=0.32]{images/augmentation/methods_performance/Position_Encoding/position_DS_NT_validation.png}
+    \includegraphics[scale=0.4]{images/augmentation/methods_performance/Position_Encoding/position_DS_NT_validation.png}
     \caption{Validation split results. Columns represent different datasets, rows different \textit{DS} error split subsets. Each plot represents the differences between the position and baseline models for the Accuracy metric on the given error subset.}
     \label{fig:aug_position_DS_NT_validation}
 \end{figure}
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[scale=0.32]{images/augmentation/methods_performance/Position_Encoding/position_DS_NT_test.png}
+    \includegraphics[scale=0.4]{images/augmentation/methods_performance/Position_Encoding/position_DS_NT_test.png}
     \caption{Test split results. Columns represent different datasets, rows different \textit{DS} error split subsets. Each plot represents the differences between the position and baseline models for the Accuracy metric on the given error subset.}
     \label{fig:aug_position_DS_NT_test}
 \end{figure}
 
 Lastly, as in the previous work by \citet{he-etal-2018-effective}, the way they evaluated the position encoding was through using a similar method to the \textit{NT} error splits. Therefore to show quantitatively that the \textit{NT} splits are not the best way to show that a method improves on target sentiment relationship modelling, figure \ref{fig:aug_position_combined_subset_heatmap} finds that only a few models are significantly better across the different \textit{NT} subsets. When any of the \textit{NT} subsets are compared to the $DS_2$ subset none have more significant models. Furthermore, figures \ref{fig:aug_position_DS_NT_validation} and \ref{fig:aug_position_DS_NT_test} show the validation and test split performance difference between the position and baseline models when the data has been first subsetted by the \textit{DS} subsets (rows in the figures) and then further subsetted by the \textit{NT} subsets. From these figures it shows some inconsistencies of which the most of these are in the validation results. The validation results for the Restaurant dataset when subsetted by $DS_1$ show a large negative correlation of which this is most likely due to the baseline model being better at sentiment overfitting on sentences that contain lots of targets. Furthermore, on the Laptop test and validation splits for the $DS_1$ subsetted row several of the results mean value is less than $0$ suggesting the baseline model is better in these circumstances. From across the test and validation splits out of all the $DS_1$ subsetted models $29.16\%$($\frac{14}{48}$) perform on average worse than their baseline models compared to $10.4\%$($\frac{5}{48}$) from the $DS_2$ and $DS_3$\footnote{The $DS_3$ subsetted models from the Laptop and Restaurant datasets were not included as they contain very few samples (less than $20$).} subsetted models. This to some degree shows that the \textit{NT} split for the $DS_1$ subsetted data at least is more likely measuring sentiment overfitting than target sentiment relationship modelling, as the baseline models perform competitively. From this it can be seen that when the number of targets does increase the performance of the position models do not always improve the results. Furthermore, the \textit{NT} split is more affected by the sentiment factors within the sentence and can be skewed by sentiment overfitting.
 
+\FloatBarrier
 \subsection{Conclusion}
 This section has found that position encoding does improve TDSA models performance in general. Further it has been shown quantitatively that the theory from the literature on position encoding improving target sentiment relationship modelling \citep{li-etal-2018-hierarchical, he-etal-2018-effective} is true through the novel TDSA metrics (\textit{STAC Multi} and \textit{STAC 1}) and existing error split (\textit{DS}). This finding could explain the reason why the \textit{TDLSTM} model performed generally better than the others on the \textit{STAC Multi} metric, and $DS_2$ and $DS_3$ subsets within the baseline results section (\ref{section:aug_baseline}). Lastly, it has been shown again that the \textit{NT} split is not a useful error split to use due to it being skewed by sentiment overfitting. From this the results that \citet{he-etal-2018-effective} presented using a similar error analysis split as \textit{NT} does not quantitatively prove that position encoding does improve target sentiment relationship modelling. Therefore, the results presented here are the first quantitative results demonstrating that position encoding does improve target sentiment relationship modelling.
 
+\FloatBarrier
 \section[Inter-Target Encoding]{Inter-Target Encoding\footnote{All graphs within this section have been generated through the following notebook \url{https://github.com/apmoore1/tdsa_comparisons/blob/master/analysis/Aspect_Encoding.ipynb}.}}
 \label{section:aug_inter_target_encoding}
 \subsection{Introduction}
@@ -143,6 +148,7 @@ The target aware method used in this section is the LSTM approach by \citet{haza
 
 
 
+\FloatBarrier
 \subsection{Experiments}
 As stated in the introduction to this section the \textit{Att-AE} model when enhanced with the LSTM target encoding of \citet{hazarika-etal-2018-modeling} becomes the same model that was used in \citet{hazarika-etal-2018-modeling}. Therefore the first experimental results presented in figure \ref{fig:aug_inter_target_reproducability} shows the single run performance from the reported accuracy scores of \citet{hazarika-etal-2018-modeling}\footnote{The accuracy scores were taken from table 2.} and the distribution of eight scores from the reproduced version in this thesis. As can be seen the reproduced model does not contain the original model's stated performance within its distribution of scores, thus it failed to reproduce the original model. The reproduced model does use the same hyperparameters and components as those stated in \citet{hazarika-etal-2018-modeling}, the only parameter difference is the output dimension of the LSTM that creates a representation for the target words,\footnote{This is LSTM\textsubscript{a} within section 3.1 of \citet{hazarika-etal-2018-modeling}.} in the reproduced model it is 300 whereas in the original it is 100. The reason for it being 300 dimension instead of 100 is that the \textit{Att-AE} model is based on two prior works \citet{hazarika-etal-2018-modeling} and \citet{wang-etal-2016-attention} and in \citet{wang-etal-2016-attention} the parameter is 300 not 100\footnote{See the first paragraph of section 4 in \citet{wang-etal-2016-attention}.}. Even though the \textit{Att-AE} model could not reproduce that of \citet{hazarika-etal-2018-modeling}, it may not be due to the different parameter decision on the LSTM. As \citet{hazarika-etal-2018-modeling} report similar models that use their inter target encoding layer but have results more similar to those of the reproduced model 74.5\% and 73.42\% on the Restaurant dataset and 69.6\% and 63.7\% of the Laptop dataset. As the results reported in \citet{hazarika-etal-2018-modeling} are single run scores, it is hard to determine if the LSTM parameter difference is the reason or the authors had a favourable random seed, as it has been shown for the macro F1 score that NN TDSA models can range by up to 15 F1 points \citep{moss-etal-2019-fiesta}\footnote{See figure 3.}. Even though the results are not reproduced, it is still reasonable to compare and contrast the results from the reproduced models that use target encoding and the models that do not. As models being compared are reproductions rather than comparing to the original works results directly. 
 
@@ -157,13 +163,13 @@ Figure \ref{fig:aug_overall_inter_target_scores.png} presents the overall result
 
 \begin{figure}[!h]
     \centering
-    \includegraphics[scale=0.3]{images/augmentation/methods_performance/Inter_Target/overall_inter_target_scores.png}
+    \includegraphics[scale=0.4]{images/augmentation/methods_performance/Inter_Target/overall_inter_target_scores.png}
     \caption{Each plot represents the three target aware enhanced models metric score on the test and validation splits. Columns represent different datasets, rows different metrics.}
     \label{fig:aug_overall_inter_target_scores.png}
 \end{figure}
 \begin{figure}[!h]
     \centering
-    \includegraphics[scale=0.3]{images/augmentation/methods_performance/Inter_Target/overall_difference_inter_target_scores.png}
+    \includegraphics[scale=0.4]{images/augmentation/methods_performance/Inter_Target/overall_difference_inter_target_scores.png}
     \caption{Each plot represents the differences between the target aware and the baseline models for the relevant metric score on the test and validation splits. Columns represent different datasets, rows different metrics.}
     \label{fig:aug_overall_difference_inter_target_scores}
 \end{figure}
@@ -173,13 +179,13 @@ Bonferroni and is aggregated across datasets. As can be seen the only significan
 
 \begin{figure}[!h]
     \centering
-    \includegraphics[scale=0.35]{images/augmentation/methods_performance/Inter_Target/dataset_sig_scores_inter_target.png}
+    \includegraphics[scale=0.5]{images/augmentation/methods_performance/Inter_Target/dataset_sig_scores_inter_target.png}
     \caption{The left hand side heatmaps represent the number of target aware models that are statistically significantly better than their baseline equivalents at the 95\% confidence level. The right hand side heatmaps represent the number of baseline models that are statistically significantly better than their target aware equivalents at the 95\% confidence level.}
     \label{fig:aug_dataset_sig_scores_inter_target}
 \end{figure}
 \begin{figure}[!h]
     \centering
-    \includegraphics[scale=0.35]{images/augmentation/methods_performance/Inter_Target/combined_sig_scores_inter_target.png}
+    \includegraphics[scale=0.5]{images/augmentation/methods_performance/Inter_Target/combined_sig_scores_inter_target.png}
     \caption{The left hand side heatmaps represent the number of target aware models that are statistically significantly better than their baseline equivalents across all datasets at the 95\% confidence level. The right hand side heatmaps represent the number of baseline models that are statistically significantly better than their target aware equivalents across all datasets at the 95\% confidence level. In both cases the multiple hypothesis tests have been corrected using Bonferroni.}
     \label{fig:aug_combined_sig_scores_inter_target}
 \end{figure}
@@ -188,20 +194,22 @@ The results comparing target aware to the baseline models across \textit{DS} and
 
 \begin{figure}[!h]
     \centering
-    \includegraphics[scale=0.4]{images/augmentation/methods_performance/Inter_Target/inter_target_split_dataset_heatmaps.png}
+    \includegraphics[scale=0.5]{images/augmentation/methods_performance/Inter_Target/inter_target_split_dataset_heatmaps.png}
     \caption{The left hand side heatmaps represent the number of target aware models that are statistically significantly better than their baseline equivalents at the 95\% confidence level. The right hand side heatmaps represent the number of baseline models that are statistically significantly better than their target aware equivalents at the 95\% confidence level. In both cases are based on the accuracy metric.}
     \label{fig:aug_inter_target_split_dataset_heatmaps}
 \end{figure}
 \begin{figure}[!h]
     \centering
-    \includegraphics[scale=0.35]{images/augmentation/methods_performance/Inter_Target/inter_target_split_combined_heatmap.png}
+    \includegraphics[scale=0.5]{images/augmentation/methods_performance/Inter_Target/inter_target_split_combined_heatmap.png}
     \caption{The left hand side heatmaps represent the number of target aware models that are statistically significantly better than their baseline equivalents across all datasets at the 95\% confidence level. The right hand side heatmaps represent the number of baseline models that are statistically significantly better than their target aware equivalents across all datasets at the 95\% confidence level. In both cases the multiple hypothesis tests have been corrected using Bonferroni and evaluated using the accuracy metric.}
     \label{fig:aug_inter_target_split_combined_heatmap}
 \end{figure}
 
+\FloatBarrier
 \subsection{Conclusion}
 To conclude, even though the previous works that incorporated some form of target awareness into their models have shown improvements over their own baseline models \citep{zhao2019modeling, fan-etal-2018-multi}, this has not been shown here. Furthermore, it has been shown that on some datasets and some baseline models that they are significantly better than their target aware version. This negative result showing that unlike the previous work here it has been shown that the target aware models are no better than their baseline models, this could be due to none of the previous works performing rigorous testing of their methods. In all of the previous works, none perform statistical significant testing nor do they take into account the random seed problem \citep{reimers-gurevych-2017-reporting} which has been shown significant in chapter \ref{chapter:reproducibility} for NN TDSA methods. In comparison this work takes both the significance testing and random seeds into account. Even though it was shown that the \textit{Att-AE} model could not reproduce the results from the original paper \citep{hazarika-etal-2018-modeling}, it can be concluded here that at least for \citet{hazarika-etal-2018-modeling} inter-target encoding method it does not perform any better than not using it. Even though it is stating that opposite of  \citet{hazarika-etal-2018-modeling}, the results here are more rigorously tested and on more models and datasets.
 
+\FloatBarrier
 \section[Contextualised Word Representations (CWR)]{Contextualised Word Representations (CWR)\footnote{All graphs within this section have been generated through the following notebook \url{https://github.com/apmoore1/tdsa_comparisons/blob/master/analysis/CWR.ipynb}.}}
 \label{section:aug_cwr}
 \subsection{Introduction}
@@ -277,19 +285,20 @@ Thus to summarise from this prior work, we can determine that:
 
 The CWR that will be used to investigate the effect it has on the TDSA and text classification methods in this thesis is the ELMo transformer (ET)\footnote{The base ET model can be found here \url{https://allennlp.org/elmo} named as the `Transformer ELMo' model.}, as it is quicker for both training and inference than the standard LSTM ELMo, and generally better than a Gated CNN version \citep{peters-etal-2018-dissecting}. Furthermore, this is used in the \textit{feature based} manner with a weighted combination of it each layers weights. \textit{Feature based} was chosen over \textit{fine-tuning} as \textit{fine-tuning} adds a large number of parameters to the task specific model, which would therefore mean that we are testing not just CWR but also the affect of adding more parameters. The effect of adding more parameters is thus undesirable and not needed, hence a \textit{feature based} approach was chosen. Furthermore, ET was chosen over BERT due to practicalities of training these models at the time of experimentation. Lastly, the point of these experiments is to test the differences between CWR and non-CWR rather than differences in CWR for TDSA. As it has been shown in the prior work that domain specific CWR out perform non-domain specific, the ET model is pre-trained using an LM task for each domain Laptop, Restaurant and Election. For the Laptop dataset the ET model is pre-trained on the Amazon electronics reviews dataset\footnote{Can be found here \url{http://jmcauley.ucsd.edu/data/amazon/}} \citep{mcauley2015image}, where the ET model is trained on 28,742,985 in domain sentences. The Restaurant dataset uses the 2019 Yelp dataset\footnote{\url{https://www.yelp.com/dataset}} where the ET model is trained on 27,286,698 in domain sentences. Finally the Election dataset unlike the others trains the ET model from scratch\footnote{Both the Laptop and Restaurant domain specific ET models were first pre-trained on the 1 Billion word corpus \citep{DBLP:conf/interspeech/ChelbaMSGBKR14} before being further trained on their respective domain specific Amazon and Yelp datasets. In comparison the Election domain specific ET model was trained from scratch, as in it was not trained on this 1 Billion word corpus and all parameters were random initialised before training on the MP Twitter data.} on 9,903,000 in domain tweets\footnote{These tweets were collected by scraping Tweets that originate from the current MPs of the time.}. All of the detailed pre-processing, analysis and training of these domain specific ET models can be found here \url{https://github.com/apmoore1/language-model}. As \citet{rietzler2019adapt} found that at least 10 million pre-training sentences are required before the CWR models perform any better than their non-domain specific CWR, furthermore the performance of their models saturate after 17 million sentences. This advice from \citet{rietzler2019adapt} has been followed for the Laptop and Restaurant ET models but not the Election ET model. Within the experiment section considering none of the prior work investigated what effect the CWR had on TDSA and text classification methods other than overall Accuracy and macro F1, this will be explored through the recommended metrics and error splits. 
 
+\FloatBarrier
 \subsection{Experiments}
 To fully report the results figure \ref{fig:aug_overall_cwr_results} shows the different metric scores the CWR TDSA and text classification (\textit{CNN}) models scored on all datasets. The more informative is figure \ref{fig:aug_overall_diff_cwr} which compares the metric scores of the CWR and their respective baseline models. From this figure it can be seen that all of the TDSA models perform better on almost every metric. The \textit{STAC 1} metric on the Election dataset some of the TDSA models perform worse/no better, which may suggest the models are becoming better at the target sentiment relationship modelling and overfitting less to the most frequent sentiment in the sentence as they improve on the \textit{STAC Multi} metric. Also some of the TDSA models perform worse/no better on the \textit{STAC Multi} metric on the Laptop and Restaurant dataset but perform much better on the \textit{STAC 1} metric suggesting the models are overfitting to the most frequent sentiment in the sentence. This initial analysis suggests to some extent that the CWR increase the performance of the TDSA model by exploiting the artefacts of the datasets. This is shown through the fact that the datasets that contain the least number of $DS_2$ and $DS_3$ sentences, Laptop and Restaurant, the CWR TDSA models perform a lot better compared to their baseline on the \textit{STAC 1} metric, but not the \textit{STAC Multi}. Whereas the Election dataset that contains more sentences of $DS_2$ and $DS_3$ combined than $DS_1$, the CWR models perform better compared to their baseline on the \textit{STAC Multi} than the \textit{STAC 1} in general. 
 
 \begin{figure}[!h]
     \centering
-    \includegraphics[scale=0.3]{images/augmentation/methods_performance/CWR/overall_cwr_results.png}
+    \includegraphics[scale=0.4]{images/augmentation/methods_performance/CWR/overall_cwr_results.png}
     \caption{Each plot represents the CWR models metric score on the test and validation splits. Columns represent different datasets, rows different metrics.}
     \label{fig:aug_overall_cwr_results}
 \end{figure}
 
 \begin{figure}[!h]
     \centering
-    \includegraphics[scale=0.3]{images/augmentation/methods_performance/CWR/overall_diff_cwr.png}
+    \includegraphics[scale=0.4]{images/augmentation/methods_performance/CWR/overall_diff_cwr.png}
     \caption{Each plot represents the differences between the CWR and the baseline models for the relevant metric score on the test and validation splits. Columns represent different datasets, rows different metrics.}
     \label{fig:aug_overall_diff_cwr}
 \end{figure}
@@ -298,14 +307,14 @@ To investigate this further the heatmaps in figure \ref{fig:aug_cwr_dataset_metr
 
 \begin{figure}[!h]
     \centering
-    \includegraphics[scale=0.4]{images/augmentation/methods_performance/CWR/cwr_dataset_metric_sig.png}
+    \includegraphics[scale=0.5]{images/augmentation/methods_performance/CWR/cwr_dataset_metric_sig.png}
     \caption{The left hand side heatmaps represent the number of CWR models that are statistically significantly better than their baseline equivalents at the 95\% confidence level. The right hand side heatmaps represent the number of baseline models that are statistically significantly better than their CWR equivalents at the 95\% confidence level.}
     \label{fig:aug_cwr_dataset_metric_sig}
 \end{figure}
 
 \begin{figure}[!h]
     \centering
-    \includegraphics[scale=0.4]{images/augmentation/methods_performance/CWR/cwr_sig_metric.png}
+    \includegraphics[scale=0.6]{images/augmentation/methods_performance/CWR/cwr_sig_metric.png}
     \caption{The number of CWR models that are statistically significantly better than their baseline equivalents across all datasets at the 95\% confidence level. Where the multiple hypothesis tests have been corrected using Bonferroni.}
     \label{fig:aug_cwr_sig_metric}
 \end{figure}
@@ -316,21 +325,23 @@ In comparison to any of the other enhancements, this is the first time that the 
 
 \begin{figure}[!h]
     \centering
-    \includegraphics[scale=0.5]{images/augmentation/methods_performance/CWR/cwr_dataset_sig_error_splits.png}
+    \includegraphics[scale=0.6]{images/augmentation/methods_performance/CWR/cwr_dataset_sig_error_splits.png}
     \caption{Heatmaps represent the number of CWR models that are statistically significantly better than their baseline equivalents at the 95\% confidence level based on the accuracy metric.}
     \label{fig:aug_cwr_dataset_sig_error_splits}
 \end{figure}
 
 \begin{figure}[!h]
     \centering
-    \includegraphics[scale=0.5]{images/augmentation/methods_performance/CWR/cwr_combined_sig_error_splits.png}
+    \includegraphics[scale=0.6]{images/augmentation/methods_performance/CWR/cwr_combined_sig_error_splits.png}
     \caption{The number of CWR models that are statistically significantly better than their baseline equivalents across all datasets at the 95\% confidence level based on the accuracy metric. Where the multiple hypothesis tests have been corrected using Bonferroni.}
     \label{fig:aug_cwr_combined_sig_error_splits}
 \end{figure}
 
+\FloatBarrier
 \subsection{Conclusion}
 To conclude, in accordance with the existing literature, it is found that through the general accuracy metric, CWR improve TDSA methods significantly compared to using non-CWR (baseline). Unlike the previous work, much greater emphasis has been placed on finding for the first time how CWR improve TDSA models. It has been shown here that the CWR significantly improve the performance of samples that contain unknown targets (\textit{UT}) or unknown sentiment relationship (\textit{USKT}). Thus suggesting that CWR models will perform better in the real world or low resource setting where a lot of the targets or sentiment relationships are not known. It was also found that the macro F1 scores for the CWR are significantly better than non-CWR, but when correcting for multiple tests was not found to be true. The CWR would appear to only improve significantly for the \textit{STAC Multi} metric and $DS_2$ subsets when the dataset contains more $DS_2$ and $DS_3$ samples like the Election dataset, improving the target sentiment relationship modelling for those TDSA models. Where as the CWR would almost always improve the \textit{STAC 1} metric and accuracy on the $DS_1$ subset, this suggesting that in some cases the CWR maybe overfitting to the most frequent sentiment in the sentence. Lastly, unlike the previous CWR works the overall accuracy results are somewhat lower. This could be due to the fact that a different CWR model was used, ET instead of BERT. Where BERT\textsubscript{b}, even though it contains a similar transformer architecture, it has 12 transformer layers compared to ET's 6. Even though the number of layers may not be significant, it has been shown for cross lingual performance in Natural Language Inference to be of great importance \citep{wang2019cross} \footnote{See table 4. Depth in table 4 is the same as layers.}. 
 
+\FloatBarrier
 \section{Conclusion}
 %The research question that this chapter was attempting to answer is `How can TDSA methods be measured quantitatively?'. To investigate this, section \ref{section:aug_error_analysis} reviewed the prior work in error analysis splits within TDSA. From this literature review, several existing error splits were found \textit{DS} which measured target sentiment relationship modelling, \textit{NT} measuring target interaction, and \textit{n-shot} measuring generalisation to unknown targets. From this literature review, two novel error splits were created \textit{TSSR} that measured target sentiment overfitting to the most frequent sentiment in a sentence and \textit{TSR} measuring generalisation to unknown sentiment relationships and targets. These existing error splits were rigorously tested in section \ref{section:aug_baseline} across three TDSA methods and a text classification method to ensure they were measuring what was hypothesised. From this \textit{NT} error split was removed due to it not measuring target interaction but rather the sentiment factors \textit{DS}. \textit{TSSR} was dropped due to it not measuring target sentiment overfitting without a text classification model and the \textit{DS} split. Lastly the \textit{n-shot} split was removed as when the value of \textit{n} increased it was expected the accuracy should increase as well or at the least not drop, which was not always true. Thus the \textit{TSR} split which measured both unknown targets and sentiment relationships was recommended as a better replacement to \textit{n-shot}. The findings from reviewing the \textit{NT} split bring the recommendation that the only way to investigate target interaction is through an annotated corpus with this explicitly annotated. A novel TDSA metric is created \textit{STAC Multi} and \textit{STAC 1} which when used together can be used to evaluate sentiment overfitting to the most frequent sentiment in the sentence. Furthermore \textit{STAC Multi} metric can be seen as a coarse grained version of the \textit{DS} error split as they both measure target sentiment relationship modelling, but \textit{STAC Multi} cannot be influenced by sentiment overfitting to the most frequent sentiment in the sentence. Thus from section \ref{section:aug_baseline} the error splits have been reduced to those that match there hypothesises and a new novel metric has been created to over come short comings from the error splits. 
 
