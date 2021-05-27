@@ -1,7 +1,7 @@
 % Only allowed a lef margin of 38mm and the rest has be 25mm.
-\documentclass[11pt]{report}
+\documentclass[twoside,11pt, a4paper]{report}
 %\usepackage[a4paper, left=38mm, right=25mm, top=25mm, bottom=25mm,includeheadfoot]{geometry}
-\usepackage{geometry}
+\usepackage[paper=a4paper]{geometry}
 \setlength{\parindent}{17pt}
 
 \usepackage[utf8]{inputenc}
@@ -51,17 +51,7 @@
 % Section numbering
 \setcounter{secnumdepth}{4}
 \setcounter{tocdepth}{4}
-%%
-%
-% This contains all of the commenting packages and commands
-% https://tex.stackexchange.com/questions/11177/how-to-write-hidden-notes-in-a-latex-file/11179
-%
-% Select what to do with todonotes: 
-% \usepackage[disable]{todonotes} % notes not showed
-\usepackage[draft]{todonotes}   % notes showed
-\newcommand{\langcorrections}[1]{\todo[color=red]{#1}}
-\newcommand{\questioncorrections}[1]{\todo[color=blue]{#1}}
-\newcommand{\commentcorrections}[1]{\todo[color=green]{#1}}
+
 % Select what to do with command \comment:  
 % \newcommand{\comment}[1]{}  %comment not showed
 \newcommand{\comment}[1]
@@ -81,6 +71,8 @@
 \usepackage{amsfonts}
 
 \usepackage{bibentry}
+
+\usepackage{svg}
 
 % Box colours, taken from the paper I did with Jeremy Barnes, of which I thank Jeremy for these Latex commands
 \usepackage{colortbl}
@@ -108,6 +100,10 @@
 \usepackage{booktabs}
 \newcommand{\sd}[1]{\par \scriptsize #1}
 \newcommand{\rqref}[1]{RQ \ref{#1}}
+
+% Appendix formatting
+\usepackage[title, titletoc]{appendix}
+\renewcommand{\appendixpagename}{Appendix}
 
 % This has come from overleaf and has been slightly adapted. This counts everything including footnotes and captions I believe and the appendix, but not bibliography.
 % https://www.overleaf.com/learn/how-to/Is_there_a_way_to_run_a_word_count_that_doesn%27t_include_LaTeX_commands%3F
@@ -138,29 +134,76 @@
 \xapptobibmacro{name:family-given}{\endgroup}{}{}
 \xapptobibmacro{name:delim}{\endgroup}{}{}
 
-\newgeometry{a4paper, left=38mm, right=25mm, top=25mm, bottom=25mm,includeheadfoot}
+\newgeometry{a4paper, left=38mm, right=25mm, top=25mm, bottom=25mm, asymmetric, includeheadfoot}
+
+% HEADER AND FOOTER STYLE
+% https://en.wikibooks.org/wiki/LaTeX/Customizing_Page_Headers_and_Footers
+\usepackage{fancyhdr}
+\setlength{\headheight}{15pt}
+% For preamble
+\fancypagestyle{preamble}{ %
+  \fancyhf{} % remove everything
+  \fancyfoot[C]{\thepage}
+  \renewcommand{\headrulewidth}{0pt} % remove lines as well
+  \renewcommand{\footrulewidth}{0pt}
+}
+\pagestyle{preamble}
+
+% For the main pages
+\fancypagestyle{main}{
+  \fancyhf{}
+  %\fancyhead[R]{\thepage}
+  \fancyfoot[C]{\thepage}
+  \fancyhead[LE]{\textit{ \nouppercase{\leftmark}} }
+  \fancyhead[LO]{\textit{ \nouppercase{\rightmark}} }
+  \renewcommand{\headrulewidth}{1pt} % remove lines as well
+  \renewcommand{\footrulewidth}{0pt}
+}
+
+% For title and chapter pages
+\fancypagestyle{plain}{ %
+  \fancyhf{} % remove everything
+  \fancyfoot[C]{\thepage} %should keep page number
+  \renewcommand{\headrulewidth}{0pt} % remove lines as well
+  \renewcommand{\footrulewidth}{0pt}
+}
+
+%%
+%
+% This contains all of the commenting packages and commands
+% https://tex.stackexchange.com/questions/11177/how-to-write-hidden-notes-in-a-latex-file/11179
+%
+% Select what to do with todonotes: 
+% \usepackage[disable]{todonotes} % notes not showed
+\usepackage[draft, textwidth=20mm]{todonotes}   % notes showed
+\newcommand{\langcorrections}[1]{\todo[color=red]{#1}}
+\newcommand{\questioncorrections}[1]{\todo[color=blue]{#1}}
+\newcommand{\commentcorrections}[1]{\todo[color=green]{#1}}
 
 \bibliography{references/methods}
 
 \begin{document}
+\pagenumbering{roman}
 
 \begin{titlepage}
 
 \center
 
-\includegraphics[scale=0.45]{main/uni_logo.png}\vspace{1cm}
+\includesvg[scale=0.6]{main/lu-logo.svg}\vspace{1cm}
 
 \huge  \textbf{Empirical Evaluation Methodology for Target Dependent Sentiment Analysis}
 
 \vspace{2cm}
 
-\large \textbf{Andrew Phillip Moore B.Sc. (Hons)}
+\Large \textbf{Andrew Phillip Moore B.Sc. (Hons)}
 
 School of Computing and Communications
 
 Lancaster University
 
 \vfill
+
+\large
 
 A thesis submitted for the degree of
 
@@ -228,6 +271,11 @@ Only one publication, shown below, has been created directly from the thesis, fr
 \AtNextCitekey{\defcounter{maxnames}{99}}
 \noindent \fullcite{moore2016domain}
 \renewcommand*{\boldnames}{} % Ensures that if you cite yourself then your name is not bold in the bibliography section.
+
+\clearpage
+
+\input{acknowledgements}
+
 \clearpage
 
 \tableofcontents
@@ -239,6 +287,10 @@ Only one publication, shown below, has been created directly from the thesis, fr
 \clearpage
 
 \listoftables
+
+\clearpage
+\pagestyle{main}
+\pagenumbering{arabic}
 
 
 
@@ -262,12 +314,12 @@ Only one publication, shown below, has been created directly from the thesis, fr
 \label{chapter:conclusion}
 \input{chapters/conclusion}
 
-\appendix
+\begin{appendices}
 \chapter{Reproducibility and Generalisability of TDSA Methods}
 \section{Tables}
 \label{appendix_reproducibility_tables}
 \input{appendix/reproducibility_tables}
-\section{Images}
+\section{Figures}
 \label{appendix_reproducibility_images}
 \input{appendix/reproducibility_images}
 \chapter[Improving Experimental Methodology for TDSA]{Improving Experimental\\Methodology for TDSA}
@@ -284,7 +336,7 @@ Only one publication, shown below, has been created directly from the thesis, fr
 %\section{Tables}
 %\label{appendix_case_tables}
 %\input{appendix/case_tables}
-\section{Images}
+\section{Figures}
 \label{appendix_case_images}
 \input{appendix/case_figures}
 %\section{Baseline TDSA Performance Metrics}
@@ -299,8 +351,9 @@ Only one publication, shown below, has been created directly from the thesis, fr
 %\section{Inter Target Encoding Figures}
 %\label{section:appendix_inter_target_encoding_figures_and_tables}
 %\input{appendix/inter_target_encoding}
+\end{appendices}
 
 
-
-\printbibliography
+\clearpage % Required to make sure the references table of contents page number is correct.
+\printbibliography[heading=bibintoc,title=References]
 \end{document}
