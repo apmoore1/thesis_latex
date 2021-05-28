@@ -98,7 +98,7 @@ The \textit{NT} split, unlike the \textit{DS} split, has a continuous number of 
 \begin{figure}[h!]
     \begin{floatrow}
         \ffigbox{
-          \includegraphics[scale=0.6]{images/augmentation/error_analysis/NT_continuous.png}
+          \includegraphics[scale=0.55]{images/augmentation/error_analysis/NT_continuous.png}
         }{
           \caption{Percentage of samples per $NT_i$ subset.}
           \label{fig:aug_error_analysis_nt_continuous}
@@ -135,14 +135,14 @@ Thus these two criteria therefore will measure the method's ability to identify 
 
 \begin{figure}[!ht]
     \centering
-    \includegraphics[scale=0.42]{images/augmentation/error_analysis/tssr_full_range.png}
+    \includegraphics[scale=0.4]{images/augmentation/error_analysis/tssr_full_range.png}
     \caption{The right (left) plot shows the cumulative sample count (percentage) for decreasing values of \textit{TSSR}.}
     \label{fig:aug_error_analysis_tssr_full}
 \end{figure}
 
 \begin{figure}[!ht]
     \centering
-    \includegraphics[scale=0.42]{images/augmentation/error_analysis/tssr_small_range.png}
+    \includegraphics[scale=0.4]{images/augmentation/error_analysis/tssr_small_range.png}
     \caption{The left plot shows the cumulative sample count percentage for decreasing values of \textit{TSSR} starting from $0.5$. The right plot shows the same as the left but for the full range of \textit{TSSR} values but excluding the Election dataset.}
     \label{fig:aug_error_analysis_tssr_small}
 \end{figure}
@@ -189,7 +189,7 @@ To further understand the relationship between the \textit{TSSR} split and the \
 
 \begin{figure}[!ht]
     \centering
-    \includegraphics[scale=0.52]{images/augmentation/error_analysis/tssr_nt_ds.png}
+    \includegraphics[scale=0.51]{images/augmentation/error_analysis/tssr_nt_ds.png}
     \caption{Percentage of samples per \textit{TSSR} subset broken down by \textit{NT} and \textit{DS} splits.}
     \label{fig:aug_error_analysis_tssr_ds_nt_breakdown}
 \end{figure}
@@ -198,7 +198,7 @@ Similar to \textit{NT}, and \textit{TSSR} the \textit{n-shot} split has differen
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[scale=0.42]{images/augmentation/error_analysis/n_shot_cuml.png}
+    \includegraphics[scale=0.4]{images/augmentation/error_analysis/n_shot_cuml.png}
     \caption{The right (left) plot shows the cumulative sample count (percentage) for increasing values of \textit{n}.}
     \label{fig:aug_n_shot_cuml}
 \end{figure}
@@ -319,7 +319,7 @@ Figure \ref{fig:aug_baseline_overall_scores} shows the results of the baseline m
 
 \begin{figure}[ht!]
     \centering
-    \includegraphics[scale=0.4]{images/augmentation/methods_performance/baseline/baseline_overall_scores.pdf}
+    \includegraphics[scale=0.38]{images/augmentation/methods_performance/baseline/baseline_overall_scores.pdf}
     \caption{The mean and standard deviation error bars from running each model 8 times.}
     \label{fig:aug_baseline_overall_scores}
 \end{figure}
@@ -446,7 +446,7 @@ The $DS_i$ split was stated to get more difficult as $i$ increased and this has 
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[scale=0.4]{images/augmentation/methods_performance/baseline/sentiment_f1_ds_all.pdf}
+    \includegraphics[scale=0.38]{images/augmentation/methods_performance/baseline/sentiment_f1_ds_all.pdf}
     \caption{Macro F1 score where the data is subsetted by the \textit{DS} split.}
     \label{fig:aug_baseline_sentiment_f1_ds_all}
 \end{figure}
@@ -455,7 +455,7 @@ To investigate why the Election test dataset does have a different trend when us
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[scale=0.4]{images/augmentation/methods_performance/baseline/sentiment_f1_ds_election.pdf}
+    \includegraphics[scale=0.38]{images/augmentation/methods_performance/baseline/sentiment_f1_ds_election.pdf}
     \caption{The Election test and validation split F1 scores for each sentiment label, where the data has been further broken down through \textit{DS} subsets.}
     \label{fig:aug_baseline_sentiment_f1_ds_election}
 \end{figure}
@@ -464,13 +464,13 @@ To further investigate whether the most frequent sentiment class always has this
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[scale=0.4]{images/augmentation/methods_performance/baseline/sentiment_f1_ds_restaurant.pdf}
+    \includegraphics[scale=0.38]{images/augmentation/methods_performance/baseline/sentiment_f1_ds_restaurant.pdf}
     \caption{The Restaurant test and validation split F1 scores for each sentiment label, where the data has been further broken down through \textit{DS} subsets.}
     \label{fig:aug_baseline_sentiment_f1_ds_restaurant}
 \end{figure}
 \begin{figure}[h!]
     \centering
-    \includegraphics[scale=0.4]{images/augmentation/methods_performance/baseline/sentiment_f1_ds_laptop.pdf}
+    \includegraphics[scale=0.38]{images/augmentation/methods_performance/baseline/sentiment_f1_ds_laptop.pdf}
     \caption{The Laptop test and validation split F1 scores for each sentiment label, where the data has been further broken down through \textit{DS} subsets.}
     \label{fig:aug_baseline_sentiment_f1_ds_laptop}
 \end{figure}
@@ -503,7 +503,7 @@ The \textit{STAC Multi} gives in one metric how well overall a TDSA model is at 
 
 \begin{figure}[ht!]
     \centering
-    \includegraphics[scale=0.4]{images/augmentation/methods_performance/baseline/baseline_stac_scores.pdf}
+    \includegraphics[scale=0.38]{images/augmentation/methods_performance/baseline/baseline_stac_scores.pdf}
     \caption{Performance across all metrics for all models across all datasets and splits.}
     \label{fig:baseline_stac_scores.png}
 \end{figure}
