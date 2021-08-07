@@ -114,6 +114,7 @@
 \usepackage{datetime}
 \newdateformat{monthyeardate}{%
   \monthname[\THEMONTH], \THEYEAR}
+\newdate{submissiondate}{01}{07}{2020}
 
 % Highlighting my own name in the references section
 \usepackage{xpatch}% or use http://tex.stackexchange.com/a/40705
@@ -154,8 +155,8 @@
   \fancyhf{}
   %\fancyhead[R]{\thepage}
   \fancyfoot[C]{\thepage}
-  \fancyhead[LE]{\textit{ \nouppercase{\leftmark}} }
-  \fancyhead[LO]{\textit{ \nouppercase{\rightmark}} }
+  \fancyhead[CE]{\textit{ \nouppercase{\leftmark}} }
+  \fancyhead[CO]{\textit{ \nouppercase{\rightmark}} }
   \renewcommand{\headrulewidth}{1pt} % remove lines as well
   \renewcommand{\footrulewidth}{0pt}
 }
@@ -211,7 +212,7 @@ A thesis submitted for the degree of
 
 \vspace{0.5cm}
 
-\monthyeardate\today
+\monthyeardate{\displaydate{submissiondate}}
 
 \end{titlepage}
 
@@ -232,7 +233,7 @@ Andrew Phillip Moore B.Sc. (Hons).
 
 School of Computing and Communications, Lancaster University
 
-A thesis submitted for the degree of \textit{Doctor of Philosophy}. \monthyeardate\today
+A thesis submitted for the degree of \textit{Doctor of Philosophy}. \monthyeardate{\displaydate{submissiondate}}
 \end{center}
 
 
