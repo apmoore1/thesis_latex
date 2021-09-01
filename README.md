@@ -1,6 +1,6 @@
 # Empirical Evaluation Methodology for Target Dependent Sentiment Analysis
 
-This repository stores the LaTeX that is used to compile my thesis `Empirical Evaluation Methodology for Target Dependent Sentiment Analysis`.
+This repository stores the LaTeX that is used to compile my thesis [Empirical Evaluation Methodology for Target Dependent Sentiment Analysis](https://www.research.lancs.ac.uk/portal/en/publications/empirical-evaluation-methodology-for-target-dependent-sentiment-analysis(e9d4e12c-65f0-43f3-86b1-ed91df2e5b7e).html).
 
 The thesis can be found in this repository in both colour, and black and white:
 
@@ -52,4 +52,18 @@ If you like the look of this thesis, it is based off the [Lancaster School of Co
 
 ## Cite
 
-To be done
+If you would like to cite my thesis:
+
+``` latex
+@phdthesis{e9d4e12c65f043f386b1ed91df2e5b7e,
+title = "Empirical Evaluation Methodology for Target Dependent Sentiment Analysis",
+author = "Andrew Moore",
+year = "2021",
+month = aug,
+day = "27",
+doi = "10.17635/lancaster/thesis/1408",
+language = "English",
+publisher = "Lancaster University",
+school = "Lancaster University",
+}
+```
