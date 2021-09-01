@@ -54,7 +54,7 @@ If you like the look of this thesis, it is based off the [Lancaster School of Co
 
 If you would like to cite my thesis:
 
-``` latex
+``` bib
 @phdthesis{e9d4e12c65f043f386b1ed91df2e5b7e,
 title = "Empirical Evaluation Methodology for Target Dependent Sentiment Analysis",
 author = "Andrew Moore",
